@@ -86,8 +86,34 @@ def test_3_input_validation():
     print("  [PASS] Local validation rejects empty inputs gracefully before calling API.")
 
 
+def test_3b_clean_initial_state_and_honest_errors():
+    print("Testing Clean Neutral Initial State & Error Handling...")
+    from app import EMPTY_RESULT_PLACEHOLDER, execute_campus_guide_qa, execute_study_mate, execute_campus_fix, execute_campus_navigation
+
+    # FIX 1 Verification: Neutral empty state on initial load
+    assert "Your results will appear here" in EMPTY_RESULT_PLACEHOLDER, "Missing empty state title"
+    assert "Choose a mode, enter your request, and click Generate to get started." in EMPTY_RESULT_PLACEHOLDER, "Missing empty state instruction"
+    assert "Campus Walking Route" not in EMPTY_RESULT_PLACEHOLDER, "Pre-written navigation route found in initial placeholder!"
+    assert "Direct Answer" not in EMPTY_RESULT_PLACEHOLDER, "Pre-written AI answer found in initial placeholder!"
+
+    # Verify input validation errors never fabricate answers
+    err_res, err_svg = execute_campus_guide_qa("   ", "All")
+    assert "Input Required" in err_res, f"Unexpected error response: {err_res}"
+    assert err_svg.get("visible") is False, "SVG should be hidden on text error"
+
+    err_study, err_svg2 = execute_study_mate("Create a study plan", "", "", 2.0, "", "")
+    assert "Input Required" in err_study, f"Unexpected study response: {err_study}"
+
+    err_fix, err_svg3 = execute_campus_fix("", "", "Medium", "")
+    assert "Input Required" in err_fix, f"Unexpected fix response: {err_fix}"
+
+    err_nav, err_svg4 = execute_campus_navigation("", "", "")
+    assert "Origin and Destination" in err_nav or "Location Not Recognized" in err_nav
+    print("  [PASS] Clean neutral state verified on load, and errors never return fabricated answers.")
+
+
 def test_4_campus_navigation_dijkstra():
-    print("Testing Campus Navigation: Dijkstra Shortest Path...")
+    print("Testing Campus Navigation: Dijkstra Shortest Path & Clean Interface...")
     # Test Canteen to CSE Block
     route = MAP_ENGINE.find_shortest_route("main_canteen", "cse_block")
     assert route["status"] == "success", "Expected route to succeed"
@@ -96,8 +122,19 @@ def test_4_campus_navigation_dijkstra():
     assert route["total_distance_m"] == 220, f"Expected 220m, got {route['total_distance_m']}"
     assert route["path_ids"] == ["main_canteen", "main_lab", "cse_block"]
     assert len(route["steps"]) == 2
-    assert "DEMO ROUTE" in route["demo_notice"]
-    print("  [PASS] Dijkstra algorithm successfully chooses the optimal shortest path (220m vs 300m).")
+    
+    # Internal metadata is preserved
+    assert "demo_notice" in route
+
+    # CRITICAL FIX 2 VERIFICATION: Rendered visible markdown MUST NOT contain the DEMO ROUTE badge banner
+    rendered_md = MAP_ENGINE.render_route_markdown(route)
+    assert "DEMO ROUTE (Sample Campus Graph • Not Surveyor Verified)" not in rendered_md, (
+        "FAIL: Exact text 'DEMO ROUTE (Sample Campus Graph • Not Surveyor Verified)' was found in visible markdown!"
+    )
+    assert "DEMO ROUTE" not in rendered_md, "FAIL: 'DEMO ROUTE' banner found in visible markdown!"
+    assert "220 meters" in rendered_md, "Distance missing from route markdown"
+    assert "Step-by-Step Directions" in rendered_md, "Directions missing from route markdown"
+    print("  [PASS] Dijkstra shortest path verified (220m) & visible 'DEMO ROUTE' banner completely absent.")
 
 
 def test_5_campus_navigation_time_and_steps():
@@ -203,6 +240,7 @@ def main():
     test_1_model_id_integrity()
     test_2_security_key_management()
     test_3_input_validation()
+    test_3b_clean_initial_state_and_honest_errors()
     test_4_campus_navigation_dijkstra()
     test_5_campus_navigation_time_and_steps()
     test_6_campus_navigation_natural_language()
@@ -211,7 +249,7 @@ def main():
     test_9_study_mate_live()
     test_10_campus_fix_live()
     print("==========================================================")
-    print("  ALL 10 VERIFICATION TESTS PASSED SUCCESSFULLY! (10/10)")
+    print("  ALL 11 VERIFICATION TESTS PASSED SUCCESSFULLY! (11/11)")
     print("==========================================================")
 
 

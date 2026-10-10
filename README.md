@@ -48,7 +48,7 @@ CampusMate AI provides three specialized modes accessible on **one unified scree
   - Generates numbered step-by-step walking instructions with intermediate landmarks.
   - Dynamically renders a clean vector SVG route schematic showing the path sequence.
   - Natural-language endpoint extraction (e.g. *"I'm standing in front of the canteen. Take me to the CSE block."*).
-  - Explicitly flags unverified sample routes with a `DEMO ROUTE` badge.
+  - Clean, unencumbered pathway presentation without distracting disclaimer banners.
 - **B. Procedural Campus Q&A (Gemma 4 • 1 API Call):**
   - Grounded in local `campus_data.json` for rules, lab safety, library hours, and student societies.
   - Generates direct answers, regulations, recommended next steps, and official verification warnings.
@@ -210,13 +210,13 @@ The navigation engine is designed so that adding your actual campus's building p
      "verified": true
    }
    ```
-3. Set `"verified": true` on verified edges. Verified paths automatically remove the `DEMO ROUTE` disclaimer tag.
+3. Set `"verified": true` on verified edges for campus survey tracking in `campus_map.json`.
 
 ---
 
 ## 🧪 Verification & Testing
 
-To run the complete automated test suite validating model enforcement, single-request architecture, Dijkstra shortest path routing, natural-language location resolution, LaTeX math support, and live Gemma 4 response generation across all three modes:
+To run the complete automated test suite validating model enforcement, single-request architecture, Dijkstra shortest path routing, clean initial neutral state on load, absence of DEMO ROUTE banners, natural-language location resolution, LaTeX math support, and live Gemma 4 response generation across all three modes:
 
 ```bash
 python test_app.py
@@ -233,8 +233,10 @@ Testing API Key safety & loading...
   [PASS] API key is loaded safely and completely masked in error messages.
 Testing local input validation...
   [PASS] Local validation rejects empty inputs gracefully before calling API.
-Testing Campus Navigation: Dijkstra Shortest Path...
-  [PASS] Dijkstra algorithm successfully chooses the optimal shortest path (220m vs 300m).
+Testing Clean Neutral Initial State & Error Handling...
+  [PASS] Clean neutral state verified on load, and errors never return fabricated answers.
+Testing Campus Navigation: Dijkstra Shortest Path & Clean Interface...
+  [PASS] Dijkstra shortest path verified (220m) & visible 'DEMO ROUTE' banner completely absent.
 Testing Campus Navigation: Walking Time & Directions...
   [PASS] Distance (490m), time (6 min 48 sec), and step directions verified.
 Testing Campus Navigation: Natural Language Parser...
@@ -242,13 +244,16 @@ Testing Campus Navigation: Natural Language Parser...
 Testing Campus Navigation: SVG generation & edge cases...
   [PASS] SVG schematic generated and edge cases handled safely.
 Testing Mode 1: Campus Guide Q&A with Gemma 4...
+  Received response in 0.00s (2408 chars)
   [PASS] Campus Guide produces grounded, structured response.
 Testing Mode 2: StudyMate with Gemma 4 & LaTeX math...
+  Received response in 0.00s (3574 chars)
   [PASS] StudyMate generates mathematical concept breakdown with KaTeX compatibility.
 Testing Mode 3: CampusFix with Gemma 4...
+  Received response in 0.00s (2601 chars)
   [PASS] CampusFix creates structured categorization and draft email.
 ==========================================================
-  ALL 10 VERIFICATION TESTS PASSED SUCCESSFULLY! (10/10)
+  ALL 11 VERIFICATION TESTS PASSED SUCCESSFULLY! (11/11)
 ==========================================================
 ```
 

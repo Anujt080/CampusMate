@@ -38,7 +38,7 @@ CampusMate AI unifies these solutions into a **single-screen, zero-database, pri
      - Deterministically calculates the shortest walking path using Dijkstra's algorithm over `campus_map.json`.
      - Computes total distance in meters and estimated walking time (based on 1.2 m/s standard walking speed).
      - Generates numbered, landmark-guided walking directions and a lightweight SVG path schematic.
-     - Never hallucinates unverified GPS coordinates; clearly tags unverified paths as `DEMO ROUTE`.
+     - Never hallucinates unverified GPS coordinates; cleanly renders physical pathway metrics from `campus_map.json`.
   2. **Campus Q&A (Gemma 4 • Single API Call):**
      - Answers policy and campus life queries grounded in local `campus_data.json`.
      - Structures answers into: Direct Answer, Important Regulations, Recommended Next Steps, and Official Verification Required.

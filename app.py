@@ -382,7 +382,46 @@ body, .gradio-container {
     padding-top: 14px;
     border-top: 1px solid var(--border-subtle);
 }
+
+/* Empty state placeholder styling */
+.result-placeholder-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 72px 20px;
+    min-height: 380px;
+}
+
+.result-placeholder-box .placeholder-icon {
+    font-size: 38px;
+    margin-bottom: 14px;
+    opacity: 0.6;
+}
+
+.result-placeholder-box .placeholder-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.result-placeholder-box .placeholder-instruction {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    max-width: 380px;
+    line-height: 1.5;
+}
 """
+
+EMPTY_RESULT_PLACEHOLDER = (
+    '<div class="result-placeholder-box">\n'
+    '    <div class="placeholder-icon">📋</div>\n'
+    '    <div class="placeholder-title">Your results will appear here</div>\n'
+    '    <div class="placeholder-instruction">Choose a mode, enter your request, and click Generate to get started.</div>\n'
+    '</div>'
+)
 
 # Client script for instant theme toggling and localStorage persistence
 THEME_JS_HEAD = """
@@ -465,16 +504,16 @@ def execute_campus_navigation(start_loc: str, end_loc: str, query_text: str):
                 "**Please select your Origin and Destination from the dropdown menus**, or try phrasing like:\n"
                 "- *\"From Canteen to CSE Block\"*\n"
                 "- *\"I'm standing near the library. Take me to the sports complex.\"*",
-                ""
+                gr.update(value="", visible=False)
             )
 
     if not s_id or not e_id:
-        return "⚠️ **Please select both an Origin and Destination location.**", ""
+        return "⚠️ **Please select both an Origin and Destination location.**", gr.update(value="", visible=False)
 
     # Execute deterministic Dijkstra route search
     route = MAP_ENGINE.find_shortest_route(s_id, e_id)
     if route.get("status") != "success":
-        return f"⚠️ **Navigation Error:** {route.get('message', 'Route not found.')}", ""
+        return f"⚠️ **Navigation Error:** {route.get('message', 'Route not found.')}", gr.update(value="", visible=False)
 
     md_content = MAP_ENGINE.render_route_markdown(route)
     svg_diagram = MAP_ENGINE.render_route_svg(route)
@@ -485,12 +524,12 @@ def execute_campus_navigation(start_loc: str, end_loc: str, query_text: str):
         f"<div style='font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;'>"
         f"<span>🧭 <b>Local Dijkstra Engine:</b> {elapsed_ms}ms</span>"
         f"<span>⚡ <b>API Calls:</b> 0 (Pure Local Routing)</span>"
-        f"<span>📏 <b>Dataset:</b> campus_map.json (Demo Graph)</span>"
+        f"<span>📏 <b>Dataset:</b> campus_map.json</span>"
         f"</div>"
     )
 
     combined_output = nl_note + md_content + footer_badge
-    return combined_output, svg_diagram
+    return combined_output, gr.update(value=svg_diagram, visible=bool(svg_diagram))
 
 
 def execute_campus_guide_qa(question: str, topic_filter: str):
@@ -498,7 +537,7 @@ def execute_campus_guide_qa(question: str, topic_filter: str):
     t0 = time.time()
     try:
         if not question or not question.strip():
-            return "⚠️ **Input Required:** Please enter your campus question or click a quick prompt.", ""
+            return "⚠️ **Input Required:** Please enter your campus question or click a quick prompt.", gr.update(value="", visible=False)
         res = run_campus_guide(question, CAMPUS_DATA, topic_filter)
         duration = round(time.time() - t0, 2)
         badge = (
@@ -509,11 +548,11 @@ def execute_campus_guide_qa(question: str, topic_filter: str):
             f"<span>🏫 <b>CampusMate AI Engine</b></span>"
             f"</div>"
         )
-        return res + badge, ""
+        return res + badge, gr.update(value="", visible=False)
     except CampusMateAPIError as err:
-        return f"### ❌ Request Error\n\n{str(err)}", ""
+        return f"### ❌ Request Error\n\n{str(err)}", gr.update(value="", visible=False)
     except Exception as exc:
-        return f"### ❌ Unexpected Error\n\n{str(exc)[:200]}", ""
+        return f"### ❌ Unexpected Error\n\n{str(exc)[:200]}", gr.update(value="", visible=False)
 
 
 def execute_study_mate(task_type: str, subject: str, timeline: str, hours: float, weak: str, inst: str):
@@ -521,7 +560,7 @@ def execute_study_mate(task_type: str, subject: str, timeline: str, hours: float
     t0 = time.time()
     try:
         if not subject or not subject.strip():
-            return "⚠️ **Input Required:** Please enter a subject, topic, or question in the StudyMate input field.", ""
+            return "⚠️ **Input Required:** Please enter a subject, topic, or question in the StudyMate input field.", gr.update(value="", visible=False)
         res = run_study_mate(task_type, subject, timeline, hours, weak, inst)
         duration = round(time.time() - t0, 2)
         badge = (
@@ -532,11 +571,11 @@ def execute_study_mate(task_type: str, subject: str, timeline: str, hours: float
             f"<span>📚 <b>StudyMate Academic Tutor</b></span>"
             f"</div>"
         )
-        return res + badge, ""
+        return res + badge, gr.update(value="", visible=False)
     except CampusMateAPIError as err:
-        return f"### ❌ Request Error\n\n{str(err)}", ""
+        return f"### ❌ Request Error\n\n{str(err)}", gr.update(value="", visible=False)
     except Exception as exc:
-        return f"### ❌ Unexpected Error\n\n{str(exc)[:200]}", ""
+        return f"### ❌ Unexpected Error\n\n{str(exc)[:200]}", gr.update(value="", visible=False)
 
 
 def execute_campus_fix(desc: str, loc: str, urgency: str, context: str):
@@ -544,7 +583,7 @@ def execute_campus_fix(desc: str, loc: str, urgency: str, context: str):
     t0 = time.time()
     try:
         if not desc or not desc.strip():
-            return "⚠️ **Input Required:** Please describe the campus facility or lab issue.", ""
+            return "⚠️ **Input Required:** Please describe the campus facility or lab issue.", gr.update(value="", visible=False)
         res = run_campus_fix(desc, loc, urgency, context)
         duration = round(time.time() - t0, 2)
         badge = (
@@ -555,11 +594,11 @@ def execute_campus_fix(desc: str, loc: str, urgency: str, context: str):
             f"<span>🛠️ <b>CampusFix Reporting Engine</b></span>"
             f"</div>"
         )
-        return res + badge, ""
+        return res + badge, gr.update(value="", visible=False)
     except CampusMateAPIError as err:
-        return f"### ❌ Request Error\n\n{str(err)}", ""
+        return f"### ❌ Request Error\n\n{str(err)}", gr.update(value="", visible=False)
     except Exception as exc:
-        return f"### ❌ Unexpected Error\n\n{str(exc)[:200]}", ""
+        return f"### ❌ Unexpected Error\n\n{str(exc)[:200]}", gr.update(value="", visible=False)
 
 
 # -------------------------------------------------------------------
@@ -684,8 +723,8 @@ def build_app():
 
                             gr.HTML("""
                             <div class="demo-notice-box">
-                                ℹ️ <b>Deterministic Routing:</b> Computed instantly using local graph algorithms in Python (0 API calls). 
-                                Route data is based on illustrative sample edges in <code>campus_map.json</code>.
+                                ℹ️ <b>Deterministic Routing:</b> Computed instantly using local Dijkstra graph algorithm in Python (0 API calls). 
+                                Local pathways are defined in <code>campus_map.json</code>.
                             </div>
                             """)
 
@@ -708,8 +747,7 @@ def build_app():
 
                             qa_query_input = gr.Textbox(
                                 label="Your Campus Question",
-                                value="What should I check if my attendance drops below the 75% requirement?",
-                                placeholder="e.g., How should I prepare for laboratory practical examinations?",
+                                placeholder="e.g., What should I check if my attendance drops below the 75% requirement?",
                                 lines=3,
                                 interactive=True
                             )
@@ -859,27 +897,16 @@ def build_app():
                 with gr.Column(scale=6):
                     gr.Markdown("### 📋 Generated Intelligence & Navigation")
                     
-                    # Pre-calculate default showcase route (Canteen to CSE Block)
-                    default_route = MAP_ENGINE.find_shortest_route("main_canteen", "cse_block")
-                    default_route_md = MAP_ENGINE.render_route_markdown(default_route) + (
-                        "\n\n---\n"
-                        "<div style='font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;'>"
-                        "<span>🧭 <b>Local Dijkstra Engine:</b> 0.4ms</span>"
-                        "<span>⚡ <b>API Calls:</b> 0 (Pure Local Routing)</span>"
-                        "<span>📏 <b>Dataset:</b> campus_map.json (Demo Graph)</span>"
-                        "</div>"
-                    )
-                    default_route_svg = MAP_ENGINE.render_route_svg(default_route)
-
-                    # Interactive SVG Route Visualizer Display
+                    # Interactive SVG Route Visualizer Display (starts empty and hidden)
                     svg_display = gr.HTML(
-                        value=default_route_svg,
-                        visible=True
+                        value="",
+                        visible=False
                     )
 
-                    # Formatted Markdown Display with KaTeX LaTeX Delimiters Enabled!
+                    # Formatted Markdown Display with KaTeX LaTeX Delimiters Enabled
+                    # Starts with a clean, neutral placeholder state - zero pre-computed answers on initial load
                     output_markdown = gr.Markdown(
-                        value=default_route_md,
+                        value=EMPTY_RESULT_PLACEHOLDER,
                         latex_delimiters=[
                             {"left": "$$", "right": "$$", "display": True},
                             {"left": "$", "right": "$", "display": False}
@@ -928,9 +955,9 @@ def build_app():
             outputs=[guide_submode, nav_subgroup, qa_subgroup]
         )
 
-        # Clear output
+        # Clear output resets to clean empty state
         clear_btn.click(
-            fn=lambda: ("", "*(Output cleared. Select an option to generate new results.)*"),
+            fn=lambda: (gr.update(value="", visible=False), EMPTY_RESULT_PLACEHOLDER),
             inputs=[],
             outputs=[svg_display, output_markdown]
         )

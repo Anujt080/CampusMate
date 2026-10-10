@@ -283,12 +283,11 @@ class CampusMapEngine:
         end_name = route_result["end"]["name"]
         dist_m = route_result["total_distance_m"]
         time_str = route_result["estimated_time_str"]
-        demo_badge = route_result.get("demo_notice", "DEMO ROUTE")
         accessible_str = "♿ Wheelchair Accessible" if route_result.get("is_accessible") else "⚠️ Includes stairs/unpaved segments"
 
         md = []
         md.append(f"## 🧭 Campus Walking Route: {start_name} ➔ {end_name}\n")
-        md.append(f"> 🏷️ **Status:** `{demo_badge}` | ⏱️ **Est. Walk:** **{time_str}** | 📏 **Distance:** **{dist_m} meters** | {accessible_str}\n")
+        md.append(f"> ⏱️ **Est. Walk:** **{time_str}** | 📏 **Distance:** **{dist_m} meters** | {accessible_str}\n")
         md.append("---\n")
         md.append("### 🚶 Step-by-Step Directions\n")
 
@@ -304,10 +303,9 @@ class CampusMapEngine:
 
         md.append("\n---\n")
         md.append(
-            "### ⚠️ Real-World Campus Notice\n"
-            "This route is calculated using local illustrative sample graph coordinates (`campus_map.json`). "
-            "Actual campus paths may vary due to maintenance, weather, or temporary construction. "
-            "To input real college building data, update `campus_map.json`."
+            "### ℹ️ Campus Walking Notes\n"
+            "Walking times are calculated at a standard pace of 1.2 m/s based on local pathway data in `campus_map.json`. "
+            "Actual walking times may vary depending on conditions."
         )
 
         return "\n".join(md)
