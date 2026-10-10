@@ -159,27 +159,27 @@ def create_deck():
     solutions = [
         (
             "🏫 Campus Guide",
-            "Authoritative Campus Navigation",
-            "Answers queries on academic resources, attendance shortfall steps, club enrollments, and lab safety.\n\n"
-            "• Grounded in local campus_data.json\n"
-            "• Clear direct answers & next steps\n"
-            "• Explicitly identifies points requiring official institutional verification"
+            "Campus Navigation & Policy Q&A",
+            "Two distinct, high-impact features in one mode:\n\n"
+            "• Local Dijkstra Navigation: Finds shortest walking paths, distance in meters, and walking time (0 API calls).\n"
+            "• Interactive SVG Schematics: Renders visual step-by-step landmark maps.\n"
+            "• Gemma 4 Procedural Q&A: Ingests local campus_data.json with official Dean verification warnings."
         ),
         (
             "📚 StudyMate",
-            "Personalized Academic Engine",
+            "Academic Engine with LaTeX Math",
             "Builds realistic study roadmaps and clarifies complex engineering concepts.\n\n"
-            "• Respects student's daily available hours\n"
-            "• Balances theory, practice, and revision\n"
-            "• Clear concept breakdowns with engineering examples and exam pitfalls"
+            "• Time-Aware: Balances theory, practice, and revision according to daily hours.\n"
+            "• KaTeX Math Rendering: Cleanly displays equations like $Av = \\lambda v$ without raw string glitches.\n"
+            "• Concrete code examples & common exam pitfalls."
         ),
         (
             "🛠️ CampusFix",
             "Actionable Incident Reporting",
             "Turns casual student frustration into professional incident report drafts.\n\n"
-            "• Classifies technical category and urgency\n"
-            "• Evaluates academic and safety impact\n"
-            "• Produces copy-ready professional emails for estate/IT/lab coordinators"
+            "• Classifies technical category and urgency.\n"
+            "• Evaluates academic and safety impact.\n"
+            "• Produces copy-ready professional emails for estate/IT/lab coordinators."
         )
     ]
 
@@ -221,10 +221,10 @@ def create_deck():
 
     tech_points = [
         ("AI Core: Gemma 4", "Strictly uses gemma-4-26b-a4b-it via the Google GenAI SDK (from google import genai). Fast, cost-efficient, state-of-the-art open-weights model."),
-        ("Strict Single-Request Rule", "Every user action makes exactly ONE model API call. No chained agent loops, no hidden retries, zero wasteful background token burn."),
-        ("Thinking Mode Disabled", "Keeps reasoning overhead low and optimizes for rapid, direct response generation suitable for student laptops."),
-        ("Zero Database Overhead", "Runs entirely stateless with local JSON knowledge retrieval. No SQL servers, no auth bloat, and total student privacy."),
-        ("Resilient Error Handling", "Sanitizes and masks all API keys and internal errors. Includes rate-limit backoff and local query caching to safeguard free hackathon quotas.")
+        ("Deterministic Campus Navigation", "Local Dijkstra algorithm over campus_map.json calculates optimal walking distance and time in <1ms with zero API requests."),
+        ("Strict Single-Request Rule", "Every AI user action makes exactly ONE model API call. No chained agent loops, no hidden retries, zero background token burn."),
+        ("Instant Theme Switcher & Math", "Persistent Light/Dark mode with local storage; full KaTeX mathematical rendering for equations ($Av = \\lambda v$)."),
+        ("Resilient Error Handling & Zero DB", "Sanitizes and masks all API keys with [REDACTED_API_KEY]. Runs 100% locally on a student laptop with no database or login.")
     ]
 
     for i, (title, text) in enumerate(tech_points):
@@ -257,19 +257,19 @@ def create_deck():
 
     demos = [
         (
-            "Demo 1: Campus Guide",
-            "Scenario: First-year student worried about attendance shortfall.\n\n"
-            "Input: 'What should I check if my attendance drops below 75%?'\n\n"
-            "Result: Clarifies the 75% norm, gives 3 actionable recovery steps (medical proof, meet TA/Advisor), and marks official Dean office clearance as requiring verification."
+            "Demo 1: Campus Navigation & Q&A",
+            "Scenario: Student at Canteen needing directions to CSE Block.\n\n"
+            "Input: Canteen ➔ CSE Block (or natural language request).\n\n"
+            "Result: Dijkstra engine outputs 220m shortest route, 3 min walk time, numbered landmark steps, and SVG route schematic in 0ms without consuming API quota!"
         ),
         (
-            "Demo 2: StudyMate",
-            "Scenario: Engineering student preparing for Algorithms mid-sem.\n\n"
-            "Input: DSA exam in 7 days, 3 hours/day, weak in Graph BFS/DFS.\n\n"
-            "Result: Produces a realistic 7-day schedule with exact time splits (60 min theory, 90 min coding, 30 min revision) and targeted graph traversal drills."
+            "Demo 2: StudyMate with LaTeX",
+            "Scenario: Student preparing for Linear Algebra & Algorithms.\n\n"
+            "Input: Eigenvalues $Av = \\lambda v$, 2 hours/day, exam in 3 days.\n\n"
+            "Result: Produces structured derivation with properly formatted mathematical formulas via KaTeX and time-balanced study checkpoints."
         ),
         (
-            "Demo 3: CampusFix",
+            "Demo 3: CampusFix Incident Draft",
             "Scenario: Wi-Fi outage during a laboratory practical.\n\n"
             "Input: 'Wi-Fi keeps disconnecting in Block C Lab 302 before online exam.'\n\n"
             "Result: Classifies as Time-Sensitive Network Incident, outlines immediate verification steps, and creates a copy-ready formal email for the IT coordinator."
