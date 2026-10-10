@@ -1,0 +1,160 @@
+{
+  "_notice": "DEMO & SAMPLE DATA ONLY. This knowledge base provides illustrative reference data for CampusMate AI demonstrations. It does not represent verified official administrative policies, live institutional records, official deadlines, faculty office hours, or emergency dispatch services. Students must always confirm specific institutional requirements with their respective Dean of Student Affairs, Academic Department Office, or designated college authorities.",
+  "institution_meta": {
+    "campus_context": "Sample Engineering & Technology Institute (Demo Environment)",
+    "semester_calendar_type": "Autumn / Spring Semesters",
+    "verification_notice": "Official notices are issued only via department notice boards and official student intranet portals."
+  },
+  "academic_resources": [
+    {
+      "category": "Central Library & Digital Commons",
+      "location": "Academic Complex, Block B",
+      "hours": "8:00 AM - 11:00 PM (Weekdays), 9:00 AM - 6:00 PM (Weekends/Holidays)",
+      "resources": [
+        "Quiet study floor (3rd Floor)",
+        "Discussion rooms for group projects (Booking required at help desk)",
+        "IEEE Xplore, ACM Digital Library, and Springer journal access on campus network",
+        "High-performance workstations for computational work"
+      ],
+      "note": "Reference books cannot be checked out overnight."
+    },
+    {
+      "category": "Department Academic Advising & Tutoring",
+      "location": "Respective Department HOD & Faculty Wings",
+      "resources": [
+        "Peer tutoring by teaching assistants (TAs) for first-year core mathematics and programming",
+        "Faculty consultation during designated office hours",
+        "Remedial tutorial sessions before mid-semester assessments"
+      ],
+      "note": "Check department bulletin boards for specific faculty consultation slots."
+    },
+    {
+      "category": "Examination Cell",
+      "location": "Administrative Building, Ground Floor (Room A-104)",
+      "responsibilities": [
+        "Hall ticket issuance",
+        "Official grade cards and transcripts",
+        "Re-evaluation and grievance redressal applications",
+        "Special dispensation and medical absence evaluation"
+      ],
+      "note": "Official requests require formal forms signed by Faculty Advisor and Head of Department."
+    }
+  ],
+  "student_clubs": [
+    {
+      "name": "Robotics & Automation Society (RAS)",
+      "domain": "Hardware, Embedded Systems, ROS & Drone Development",
+      "activities": "Annual hardware hackathons, robot combat tournaments, inter-IIT tech meets",
+      "how_to_join": "Freshers recruitments occur in September. Open workshops conducted every weekend. Prior experience helpful but enthusiasm and fundamental C++/Python preferred."
+    },
+    {
+      "name": "Association for Computing Machinery (ACM) Student Chapter",
+      "domain": "Algorithms, Competitive Programming & Open Source",
+      "activities": "Weekly algorithmic contests, coding bootcamps, open-source sprints, mock technical interviews",
+      "how_to_join": "Open recruitment coding challenge held at semester beginning. Active Discord community for doubt clearing."
+    },
+    {
+      "name": "AI & Data Science Guild",
+      "domain": "Deep Learning, NLP, Generative AI & Kaggle Competitions",
+      "activities": "Reading groups, paper presentations, GPU cluster orientation, hackathon project incubators",
+      "how_to_join": "Project submission during orientation week. Beginners can join the study track."
+    },
+    {
+      "name": "Aeromodelling & Aerospace Club",
+      "domain": "RC Aircraft, Quadcopters, Aerodynamics Simulation",
+      "activities": "RC flying workshops, design competitions, rocketry intro sessions",
+      "how_to_join": "Orientation session held at Central Grounds; all branches eligible."
+    },
+    {
+      "name": "Design & Developer Student Club",
+      "domain": "UI/UX Design, Web & Mobile Engineering, Product Management",
+      "activities": "Design sprints, campus mobile app development, hackathon team matching",
+      "how_to_join": "Portfolio review or design challenge participation."
+    }
+  ],
+  "library_usage": {
+    "borrowing_rules": "Undergraduates can borrow up to 4 books for 14 days. Postgraduates can borrow up to 6 books for 30 days.",
+    "renewals": "Books can be renewed twice online if no hold has been placed by another student.",
+    "fines_policy": "Late returns incur standard nominal daily penalties. Overdue accounts cannot register for new semester courses until cleared.",
+    "facilities": "RFID self-checkout kiosks, quiet reading zones, photocopier and printing counter (Floor 1).",
+    "etiquette": "Strict silence in quiet zones; mobile phones must be silenced; no food or uncovered beverages allowed near library stacks."
+  },
+  "laboratory_etiquette": {
+    "safety_norms": [
+      "Wear mandatory closed-toe shoes and safety coats/goggles where designated (Chemistry and Mechanical workshops)",
+      "Never operate high-voltage testing equipment or machine tools without the presence of the lab instructor or technician",
+      "Report damaged wiring, sparkings, or chemical spills immediately to the laboratory superintendent",
+      "Food, sugary drinks, and unsealed liquid containers are strictly forbidden around computer terminals and electronic breadboards"
+    ],
+    "hardware_and_component_issue": [
+      "Microcontroller kits (Arduino, ESP32, FPGA boards) require a valid student ID card deposit",
+      "Inspect all cables, probes, and components before signing out; report pre-existing damage to avoid liability",
+      "Return all components neatly back into component bins at least 10 minutes before the session ends"
+    ],
+    "computing_lab_policies": [
+      "Do not install unauthorized software or modify administrator configurations on lab PCs",
+      "Save your academic coursework to remote cloud repositories (GitHub, GitLab, or personal drive) as lab machines refresh nightly",
+      "Log off your workstation completely before leaving the laboratory"
+    ]
+  },
+  "general_college_procedures": {
+    "attendance_policy": {
+      "standard_norm": "A minimum of 75% attendance is standard across theory and laboratory courses to be eligible to appear for end-semester examinations.",
+      "shortfall_procedure": "If attendance drops between 65% and 75% due to valid medical reasons or representing the institute in technical/sports competitions, submit official medical certificates or representation letters to the Academic Dean within 7 days of returning to campus.",
+      "critical_shortfall": "Attendance below 65% generally leads to grade penalty or mandatory course repeat. Consult Faculty Advisor immediately."
+    },
+    "medical_leave_submission": {
+      "procedure": "Visit the Campus Health Center for initial assessment. If treated off-campus, obtain a certified medical certificate and submit it alongside a formal leave application signed by your Faculty Advisor and HOD to the Academic Section.",
+      "timeline": "Application must be filed within 7 calendar days of resume date."
+    },
+    "hall_ticket_and_exam_clearance": {
+      "procedure": "Download provisional admit card from the student ERP portal one week before examinations. Ensure library dues, hostel dues, and tuition fees are fully cleared.",
+      "mandatory_items": "Physical student ID card and printed hall ticket are required for entry into every examination hall."
+    },
+    "re_evaluation_and_grade_grievances": {
+      "procedure": "Grade grievances can be filed within 10 days of results declaration. Apply through the Examination Cell with receipt of the re-evaluation processing fee. Answer scripts are verified for re-totalling and un-evaluated questions."
+    }
+  },
+  "campus_facilities": {
+    "health_center": {
+      "location": "Residential Block, Sector 2",
+      "hours": "24/7 emergency first-aid; Outpatient Doctor consultation 9:00 AM - 7:00 PM",
+      "services": "Emergency medical stabilization, basic pharmacy, ambulance service, mental wellness counseling"
+    },
+    "cafeterias_and_dining": {
+      "central_mess": "Breakfast (7:30 - 9:30 AM), Lunch (12:00 - 2:00 PM), Snacks (4:30 - 6:00 PM), Dinner (7:30 - 9:30 PM)",
+      "night_canteen": "Open until 2:00 AM for study sustenance during exam weeks"
+    },
+    "sports_and_recreation": {
+      "facilities": "Indoor badminton courts, table tennis, gym/fitness center, basketball courts, athletics track",
+      "gym_timings": "6:00 AM - 9:30 AM (Morning session) and 4:30 PM - 8:30 PM (Evening session)"
+    },
+    "campus_it_and_network_support": {
+      "location": "Computer Center, 1st Floor",
+      "services": "Campus Wi-Fi (802.1x) registration, institutional email credentials, VPN access for off-campus research papers",
+      "reporting": "Report network outages and router hardware issues via campus IT portal or direct help desk visit"
+    }
+  },
+  "common_student_questions": [
+    {
+      "question": "How should a first-year engineering student prepare for college?",
+      "guidance": "1. Master foundational math and programming concepts early; they underpin upper-level coursework. 2. Attend orientation sessions to explore clubs and technical societies. 3. Form regular peer study groups. 4. Maintain a consistent sleep schedule and track assignments using a digital calendar. 5. Know your Faculty Advisor and department office location."
+    },
+    {
+      "question": "What should I check if I have an attendance problem?",
+      "guidance": "1. Check the official student ERP portal for verified attendance logs. 2. Calculate the exact number of classes needed to reach 75%. 3. If missed due to sickness, gather medical certificates and meet the course instructor during office hours. 4. Inform your Faculty Advisor early before the end-semester detention list is finalized."
+    },
+    {
+      "question": "How can I prepare for practical examinations?",
+      "guidance": "1. Ensure laboratory records and observation notebooks are verified and signed by instructors. 2. Review fundamental circuit diagrams, algorithm flowcharts, and code syntax. 3. Practice setting up experiments under timed constraints. 4. Prepare for the viva voce by reviewing the theoretical principles and potential sources of experimental error."
+    },
+    {
+      "question": "How can I get started with technical clubs and hackathons?",
+      "guidance": "1. Attend club freshman orientations in early semester. 2. Choose 1 or 2 clubs aligned with your interest (e.g., Coding or Robotics). 3. Build a small weekend project (e.g., a simple web app or Arduino robot). 4. Join a hackathon team with diverse skills (frontend, backend, design, pitch). 5. Focus on solving real-world student/campus problems."
+    },
+    {
+      "question": "How should I approach a problem involving a campus facility?",
+      "guidance": "1. Note specific details: exact room number, floor, building, and nature of the issue. 2. Check if the problem impacts safety or academic deadlines (e.g., lab Wi-Fi down before practicals). 3. Use the CampusFix mode to draft a clear, professional incident report. 4. Submit the report through your hostel warden, department IT helpdesk, or estate office."
+    }
+  ]
+}

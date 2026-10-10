@@ -1,0 +1,24 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables & API keys
+.env
+*.env.local
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Local cache & temp files
+.cache/
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Presentation temp files
+~$*.pptx
