@@ -12,13 +12,17 @@
 
 ## 📌 Application Interface
 
-![CampusMate AI Working Interface](assets/campusmate_screenshot.png)
+## 📌 Application Interface (Light & Dark Themes)
+
+| ☀️ Clean Light Theme (Navigation + SVG Schematic) | 🌙 Refined Dark Theme (Persistent Preference) |
+| :---: | :---: |
+| ![CampusMate AI Light Theme](assets/campusmate_screenshot.png) | ![CampusMate AI Dark Theme](assets/campusmate_dark_screenshot.png) |
 
 ---
 
 ## 📖 Project Overview
 
-**CampusMate AI** is a lightweight, student-centric artificial intelligence companion that helps college and engineering students find critical campus information, prepare realistically for examinations, master difficult academic concepts, and transform everyday facility or laboratory breakdowns into structured, actionable incident reports.
+**CampusMate AI** is a lightweight, student-centric artificial intelligence companion that helps college and engineering students navigate campus landmarks, find critical college information, prepare realistically for examinations, master difficult academic concepts, and transform everyday facility or laboratory breakdowns into structured, actionable incident reports.
 
 Rather than building an over-engineered multi-service application with databases and authentication overhead, CampusMate AI is architected as a **focused, single-screen MVP that runs entirely locally on a student's laptop** while strictly complying with hackathon resource efficiency guidelines.
 
@@ -27,8 +31,8 @@ Rather than building an over-engineered multi-service application with databases
 ## 🚩 Problem Statement
 
 Students on modern technical campuses face three friction points every semester:
-1. **Scattered Institutional Knowledge:** College policies, attendance regulations (e.g. 75% criteria), laboratory etiquette, and club recruitment details are fragmented across physical notice boards, outdated portals, and senior hearsay. First-years often discover critical rules only after violating them.
-2. **Academic Cramming & Generic Study Advice:** Standard AI chatbots suggest unrealistic 12-hour cramming routines or generate abstract explanations without concrete engineering examples, exam pitfalls, or weak-area prioritization.
+1. **Physical & Administrative Navigation Friction:** Navigating across sprawling campus grounds between hostels, labs, and admin blocks is confusing for first-years and visitors. Furthermore, attendance rules (e.g. the 75% norm) and administrative guidelines are fragmented across notice boards and hearsay.
+2. **Academic Cramming & Shallow Concept Explanations:** Standard AI chatbots suggest unrealistic 12-hour cramming routines or generate abstract explanations without mathematical notation ($Av = \lambda v$), concrete engineering examples, or weak-area prioritization.
 3. **Unresolved Infrastructure & Lab Faults:** Broken lab oscilloscopes, classroom projector overheating, or intermittent Wi-Fi during practical exams often go unreported because students lack a quick way to draft a professional, technical complaint to administration.
 
 ---
@@ -37,12 +41,17 @@ Students on modern technical campuses face three friction points every semester:
 
 CampusMate AI provides three specialized modes accessible on **one unified screen**:
 
-### 1. 🏫 Campus Guide
-- **Purpose:** Answers student questions about academic resources, library borrowing rules, laboratory safety norms, technical clubs, and college administrative procedures.
-- **Local Grounding:** Ingests local editable reference data from `campus_data.json` into prompt context to deliver reliable, institution-aware guidance.
-- **Structured Response Format:**
-  - 📌 **Direct Answer:** Immediate, empathetic answer to the student's question.
-  - 🔍 **Important Details & Regulations:** Clear breakdown of campus criteria and rules.
+### 1. 🏫 Campus Guide (Navigation & Q&A)
+- **A. Deterministic Campus Navigation Engine (0 API Calls):**
+  - Instant local shortest-path calculation powered by **Dijkstra's Algorithm** over `campus_map.json`.
+  - Calculates walking distance in meters and walking time (based on 1.2 m/s standard walking speed).
+  - Generates numbered step-by-step walking instructions with intermediate landmarks.
+  - Dynamically renders a clean vector SVG route schematic showing the path sequence.
+  - Natural-language endpoint extraction (e.g. *"I'm standing in front of the canteen. Take me to the CSE block."*).
+  - Explicitly flags unverified sample routes with a `DEMO ROUTE` badge.
+- **B. Procedural Campus Q&A (Gemma 4 • 1 API Call):**
+  - Grounded in local `campus_data.json` for rules, lab safety, library hours, and student societies.
+  - Generates direct answers, regulations, recommended next steps, and official verification warnings.
   - 💡 **Recommended Next Steps:** Actionable checklist for the student.
   - ⚠️ **Information Requiring Official Verification:** Explicit reminder of which submissions need formal approval from the Dean or Faculty Advisor.
 
@@ -90,10 +99,12 @@ CampusMate AI strictly integrates **`gemma-4-26b-a4b-it`** through the official 
 
 ```text
 CampusMate-AI/
-├── app.py                   # Main Gradio application (single-screen dashboard)
+├── app.py                   # Main Gradio application (redesigned single-screen dashboard)
 ├── gemma_client.py          # Gemma 4 client helper (single-request, caching, error handling)
-├── campus_data.json         # Local editable sample campus knowledge base
-├── test_app.py              # Automated test suite (6/6 tests passing)
+├── campus_map.py            # Local Dijkstra shortest-path routing & SVG schematic engine
+├── campus_map.json          # Local editable campus map dataset (nodes and walking edges)
+├── campus_data.json         # Local editable sample campus procedures & policies
+├── test_app.py              # Automated test suite (10/10 tests passing)
 ├── create_presentation.py   # PowerPoint deck generator script
 ├── requirements.txt         # Minimal production dependencies
 ├── .env.example             # Template for API credentials
@@ -102,7 +113,8 @@ CampusMate-AI/
 ├── LICENSE                  # MIT open-source license
 ├── SKILL.md                 # Agent Skill specification for hackathon organizers
 ├── assets/
-│   └── campusmate_screenshot.png  # High-resolution screenshot of the running app
+│   ├── campusmate_screenshot.png       # Light theme interface screenshot
+│   └── campusmate_dark_screenshot.png  # Dark theme interface screenshot
 └── presentation/
     └── CampusMate-AI.pptx   # 6-slide widescreen hackathon pitch deck
 ```
@@ -164,21 +176,56 @@ Open your browser and navigate to:
 ```
 http://127.0.0.1:7860
 ```
+- Click the **🌙 Dark / ☀️ Light** button in the top-right corner to toggle themes instantly.
+- Theme preferences are saved to your browser's `localStorage` and persist across sessions.
+
+---
+
+## 📍 How to Add Verified Campus Map Data
+
+The navigation engine is designed so that adding your actual campus's building positions and walking paths requires **editing only `campus_map.json` without modifying any Python code**:
+
+1. **Add Building Nodes** in `locations`:
+   ```json
+   {
+     "id": "new_cse_block",
+     "name": "New CSE Building",
+     "category": "Academics",
+     "description": "Department of Computer Science, 3rd Floor Labs",
+     "aliases": ["cse building", "new cse", "computer labs"],
+     "x": 450,
+     "y": 600
+   }
+   ```
+2. **Add Walking Paths** in `edges`:
+   ```json
+   {
+     "from": "main_canteen",
+     "to": "new_cse_block",
+     "distance_m": 120,
+     "instruction_forward": "Walk north along the shaded corridor toward New CSE Building.",
+     "instruction_backward": "Head south toward the Main Canteen.",
+     "landmarks": ["Clock Tower Plaza", "Bicycle Parking"],
+     "accessible": true,
+     "verified": true
+   }
+   ```
+3. Set `"verified": true` on verified edges. Verified paths automatically remove the `DEMO ROUTE` disclaimer tag.
 
 ---
 
 ## 🧪 Verification & Testing
 
-To run the complete automated test suite validating model enforcement, single-request architecture, local validation, and live Gemma 4 response generation across all three modes:
+To run the complete automated test suite validating model enforcement, single-request architecture, Dijkstra shortest path routing, natural-language location resolution, LaTeX math support, and live Gemma 4 response generation across all three modes:
 
 ```bash
 python test_app.py
 ```
 
-Expected output:
+Execution output:
 ```text
 ==========================================================
-  RUNNING CAMPUSMATE AI VERIFICATION SUITE
+  RUNNING CAMPUSMATE AI COMPREHENSIVE VERIFICATION SUITE
 ==========================================================
 Testing Model ID integrity...
   [PASS] Model ID is strictly 'gemma-4-26b-a4b-it'.
@@ -186,14 +233,22 @@ Testing API Key safety & loading...
   [PASS] API key is loaded safely and completely masked in error messages.
 Testing local input validation...
   [PASS] Local validation rejects empty inputs gracefully before calling API.
-Testing Mode 1: Campus Guide with Gemma 4...
+Testing Campus Navigation: Dijkstra Shortest Path...
+  [PASS] Dijkstra algorithm successfully chooses the optimal shortest path (220m vs 300m).
+Testing Campus Navigation: Walking Time & Directions...
+  [PASS] Distance (490m), time (6 min 48 sec), and step directions verified.
+Testing Campus Navigation: Natural Language Parser...
+  [PASS] Natural-language location queries correctly mapped to graph nodes.
+Testing Campus Navigation: SVG generation & edge cases...
+  [PASS] SVG schematic generated and edge cases handled safely.
+Testing Mode 1: Campus Guide Q&A with Gemma 4...
   [PASS] Campus Guide produces grounded, structured response.
-Testing Mode 2: StudyMate with Gemma 4...
-  [PASS] StudyMate creates detailed, realistic study schedule.
+Testing Mode 2: StudyMate with Gemma 4 & LaTeX math...
+  [PASS] StudyMate generates mathematical concept breakdown with KaTeX compatibility.
 Testing Mode 3: CampusFix with Gemma 4...
   [PASS] CampusFix creates structured categorization and draft email.
 ==========================================================
-  ALL TESTS PASSED SUCCESSFULLY! (6/6)
+  ALL 10 VERIFICATION TESTS PASSED SUCCESSFULLY! (10/10)
 ==========================================================
 ```
 

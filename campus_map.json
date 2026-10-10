@@ -1,0 +1,251 @@
+{
+  "_notice": "DEMO & SAMPLE CAMPUS MAP DATA ONLY. This dataset provides illustrative walking paths and landmark distances for CampusMate AI demonstrations. It does not represent surveyor-verified distances or official campus architectural blueprints. To adapt this system for your actual institution, replace the nodes and edges below with verified campus building data.",
+  "metadata": {
+    "campus_name": "Sample Engineering & Technology Institute (Demo Campus)",
+    "default_walking_speed_mps": 1.2,
+    "verified_dataset": false
+  },
+  "locations": [
+    {
+      "id": "main_gate",
+      "name": "Main Gate",
+      "category": "Entrance",
+      "description": "Primary campus entrance with 24/7 security booth and visitor reception.",
+      "aliases": ["main gate", "entrance", "campus gate", "security gate", "front gate", "entry"],
+      "x": 100,
+      "y": 500
+    },
+    {
+      "id": "admin_block",
+      "name": "Administrative Block",
+      "category": "Administration",
+      "description": "Houses Examination Cell, Dean of Student Affairs, and Registrar Office.",
+      "aliases": ["admin block", "administrative block", "dean office", "exam cell", "administration", "director office"],
+      "x": 300,
+      "y": 450
+    },
+    {
+      "id": "central_courtyard",
+      "name": "Central Courtyard",
+      "category": "Hub",
+      "description": "Central landscaped hub featuring the landmark clock tower and covered walkways.",
+      "aliases": ["central courtyard", "courtyard", "quadrangle", "clock tower", "central plaza", "fountain"],
+      "x": 500,
+      "y": 400
+    },
+    {
+      "id": "main_canteen",
+      "name": "Main Canteen",
+      "category": "Dining",
+      "description": "Student cafeteria, snack stalls, and open-air seating beside the lawn.",
+      "aliases": ["main canteen", "canteen", "cafeteria", "mess", "food court", "food", "dining"],
+      "x": 450,
+      "y": 650
+    },
+    {
+      "id": "library",
+      "name": "Central Library",
+      "category": "Library",
+      "description": "3-story digital library, quiet reading floors, and journal archives.",
+      "aliases": ["library", "central library", "digital library", "reading room", "study hall"],
+      "x": 700,
+      "y": 300
+    },
+    {
+      "id": "cse_block",
+      "name": "CSE Block",
+      "category": "Academics",
+      "description": "Department of Computer Science & Engineering, software labs, and AI research wings.",
+      "aliases": ["cse block", "cse department", "computer science", "cs block", "cs department", "coding labs"],
+      "x": 750,
+      "y": 550
+    },
+    {
+      "id": "main_lab",
+      "name": "Main Laboratory Complex",
+      "category": "Labs",
+      "description": "Hardware labs, electronics circuit suites, and physics/chemistry testing facilities.",
+      "aliases": ["main laboratory", "main lab", "lab complex", "electronics lab", "vlsi lab", "hardware lab"],
+      "x": 650,
+      "y": 700
+    },
+    {
+      "id": "mech_workshop",
+      "name": "Mechanical Workshop",
+      "category": "Labs",
+      "description": "Machine shop, welding bays, robotics fabrication facility, and thermal labs.",
+      "aliases": ["mechanical workshop", "mech workshop", "workshop", "fab lab", "robotics shop"],
+      "x": 900,
+      "y": 750
+    },
+    {
+      "id": "sports_complex",
+      "name": "Sports & Gymnasium Complex",
+      "category": "Athletics",
+      "description": "Indoor badminton courts, gym fitness suite, athletic field, and basketball arena.",
+      "aliases": ["sports complex", "gym", "gymnasium", "playground", "badminton court", "sports ground"],
+      "x": 300,
+      "y": 750
+    },
+    {
+      "id": "health_center",
+      "name": "Campus Health Center",
+      "category": "Medical",
+      "description": "24/7 student dispensary, first-aid unit, and pharmacy.",
+      "aliases": ["health center", "medical center", "dispensary", "clinic", "hospital", "doctor"],
+      "x": 200,
+      "y": 300
+    },
+    {
+      "id": "sac_building",
+      "name": "Student Activity Center (SAC)",
+      "category": "Student Life",
+      "description": "Headquarters for technical clubs, cultural societies, and hackathon co-working spaces.",
+      "aliases": ["student activity center", "sac", "sac building", "club house", "hackathon space"],
+      "x": 850,
+      "y": 380
+    }
+  ],
+  "edges": [
+    {
+      "from": "main_gate",
+      "to": "admin_block",
+      "distance_m": 180,
+      "instruction_forward": "Walk straight along the palm avenue from Main Gate toward the Administrative Block entrance.",
+      "instruction_backward": "Head west from the Administrative Block along the palm avenue toward the Main Gate exit.",
+      "landmarks": ["Security Reception", "Campus Welcome Board"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "admin_block",
+      "to": "health_center",
+      "distance_m": 120,
+      "instruction_forward": "Turn northwest along the shaded clinic path toward the Campus Health Center.",
+      "instruction_backward": "Head southeast toward the Administrative Block main foyer.",
+      "landmarks": ["Emergency Ambulance Bay"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "admin_block",
+      "to": "central_courtyard",
+      "distance_m": 160,
+      "instruction_forward": "Proceed east through the covered colonnade past the Dean's lawn toward the Central Courtyard.",
+      "instruction_backward": "Follow the western colonnade walkway toward the Administrative Block.",
+      "landmarks": ["Dean Lawn", "Central Colonnade"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "admin_block",
+      "to": "sports_complex",
+      "distance_m": 220,
+      "instruction_forward": "Head south along the residential road leading to the Sports & Gymnasium Complex.",
+      "instruction_backward": "Walk north toward the Administrative Block.",
+      "landmarks": ["Tennis Courts", "Bicycle Parking Zone"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "central_courtyard",
+      "to": "main_canteen",
+      "distance_m": 110,
+      "instruction_forward": "Walk south past the clock tower and take the paved steps down to the Main Canteen plaza.",
+      "instruction_backward": "Walk north from the Main Canteen and head up toward the Central Courtyard Clock Tower.",
+      "landmarks": ["Clock Tower", "Notice Kiosk"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "central_courtyard",
+      "to": "library",
+      "distance_m": 150,
+      "instruction_forward": "Take the northeast tree-lined walkway directly toward the Central Library glass façade.",
+      "instruction_backward": "Head southwest from the Library main entrance back toward the Central Courtyard.",
+      "landmarks": ["Alumni Garden", "Quiet Reading Lawn"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "central_courtyard",
+      "to": "cse_block",
+      "distance_m": 190,
+      "instruction_forward": "Walk east along the Academic Pedestrian Spine toward the CSE Block foyer.",
+      "instruction_backward": "Walk west along the Academic Spine toward the Central Courtyard.",
+      "landmarks": ["Academic Spine Arch", "Robotics Display Window"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "main_canteen",
+      "to": "main_lab",
+      "distance_m": 90,
+      "instruction_forward": "Exit the south side of the Canteen and follow the covered walkway to the Main Laboratory Complex.",
+      "instruction_backward": "Exit the Main Lab and walk north past the juice stall into the Main Canteen.",
+      "landmarks": ["Canteen Patio", "Electronics Notice Board"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "main_canteen",
+      "to": "sports_complex",
+      "distance_m": 170,
+      "instruction_forward": "Head west from the Canteen along the perimeter gravel lane to the Sports Complex entrance.",
+      "instruction_backward": "Walk east along the perimeter lane toward the Main Canteen.",
+      "landmarks": ["Open Volleyball Court"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "main_lab",
+      "to": "cse_block",
+      "distance_m": 130,
+      "instruction_forward": "Walk northeast along the tech corridor connecting the hardware labs to the CSE Block.",
+      "instruction_backward": "Walk southwest along the corridor from the CSE Block toward the Main Laboratory Complex.",
+      "landmarks": ["IoT Research Center", "Faculty Parking"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "main_lab",
+      "to": "mech_workshop",
+      "distance_m": 160,
+      "instruction_forward": "Proceed east along the heavy machinery access road to the Mechanical Workshop bays.",
+      "instruction_backward": "Head west from the Mechanical Workshop toward the Main Laboratory entrance.",
+      "landmarks": ["Solar Power Panel Array", "Welding Yard"],
+      "accessible": false,
+      "verified": false
+    },
+    {
+      "from": "library",
+      "to": "sac_building",
+      "distance_m": 120,
+      "instruction_forward": "Head southeast from the library exit along the student promenade toward the SAC Building.",
+      "instruction_backward": "Walk northwest along the student promenade from SAC toward the Central Library.",
+      "landmarks": ["Student Art Wall", "Bicycle Rental Station"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "cse_block",
+      "to": "sac_building",
+      "distance_m": 140,
+      "instruction_forward": "Take the northern corridor from CSE Block directly into the Student Activity Center.",
+      "instruction_backward": "Take the southern corridor from the SAC exit back to the CSE Block entrance.",
+      "landmarks": ["Open-Source Hub Bulletin", "Hackathon Project Display"],
+      "accessible": true,
+      "verified": false
+    },
+    {
+      "from": "cse_block",
+      "to": "mech_workshop",
+      "distance_m": 180,
+      "instruction_forward": "Head southeast across the engineering concourse toward the Mechanical Workshop gates.",
+      "instruction_backward": "Head northwest across the engineering concourse toward the CSE Block.",
+      "landmarks": ["Automotive CAD Lab", "Engineering Concourse"],
+      "accessible": true,
+      "verified": false
+    }
+  ]
+}

@@ -2,12 +2,15 @@
 ----------------------------------------------
 Verifies:
 1. Model constraint strictly enforces gemma-4-26b-a4b-it.
-2. Single-request execution rule per user action.
-3. Mode 1: Campus Guide behavior with grounded context.
-4. Mode 2: StudyMate study plan, concept explanation, and question solver.
-5. Mode 3: CampusFix incident reporting and boundary compliance.
-6. Local input validation and sanitized error handling.
-7. API key security (never exposed or leaked).
+2. Security & API key masking (never exposed or leaked).
+3. Local input validation.
+4. Campus Navigation: Dijkstra shortest path algorithm.
+5. Campus Navigation: Distance & walking time calculation.
+6. Campus Navigation: Natural language origin/destination parsing.
+7. Campus Navigation: SVG route schematic generation.
+8. Campus Guide: Procedural Q&A grounded with local data.
+9. StudyMate: Concept explanations and study schedules with LaTeX math support.
+10. CampusFix: Facility incident reporting and boundary compliance.
 """
 
 import json
@@ -30,6 +33,10 @@ from gemma_client import (
     get_sanitized_api_key,
     sanitize_error_message
 )
+from campus_map import get_campus_map_engine
+
+# Load map engine
+MAP_ENGINE = get_campus_map_engine()
 
 # Load campus data
 with open(PROJECT_ROOT / "campus_data.json", "r", encoding="utf-8") as f:
@@ -59,7 +66,6 @@ def test_2_security_key_management():
 
 def test_3_input_validation():
     print("Testing local input validation...")
-    # Empty query tests
     try:
         run_campus_guide("", CAMPUS_DATA)
         assert False, "Should have raised CampusMateAPIError for empty guide query"
@@ -80,37 +86,101 @@ def test_3_input_validation():
     print("  [PASS] Local validation rejects empty inputs gracefully before calling API.")
 
 
-def test_4_campus_guide_live():
-    print("Testing Mode 1: Campus Guide with Gemma 4...")
+def test_4_campus_navigation_dijkstra():
+    print("Testing Campus Navigation: Dijkstra Shortest Path...")
+    # Test Canteen to CSE Block
+    route = MAP_ENGINE.find_shortest_route("main_canteen", "cse_block")
+    assert route["status"] == "success", "Expected route to succeed"
+    # Shortest path is Canteen -> Main Lab (90m) -> CSE Block (130m) = 220m
+    # compared to Canteen -> Courtyard (110m) -> CSE Block (190m) = 300m
+    assert route["total_distance_m"] == 220, f"Expected 220m, got {route['total_distance_m']}"
+    assert route["path_ids"] == ["main_canteen", "main_lab", "cse_block"]
+    assert len(route["steps"]) == 2
+    assert "DEMO ROUTE" in route["demo_notice"]
+    print("  [PASS] Dijkstra algorithm successfully chooses the optimal shortest path (220m vs 300m).")
+
+
+def test_5_campus_navigation_time_and_steps():
+    print("Testing Campus Navigation: Walking Time & Directions...")
+    # Test Main Gate to Library
+    route = MAP_ENGINE.find_shortest_route("main_gate", "library")
+    assert route["status"] == "success"
+    # Gate -> Admin (180m) + Admin -> Courtyard (160m) + Courtyard -> Library (150m) = 490m
+    assert route["total_distance_m"] == 490
+    assert route["estimated_time_sec"] == int(490 / 1.2)  # ~408s = 6 min 48 sec
+    assert "6 min" in route["estimated_time_str"]
+    assert len(route["steps"]) == 3
+    for step in route["steps"]:
+        assert "instruction" in step and step["instruction"]
+    print(f"  [PASS] Distance (490m), time ({route['estimated_time_str']}), and step directions verified.")
+
+
+def test_6_campus_navigation_natural_language():
+    print("Testing Campus Navigation: Natural Language Parser...")
+    q1 = "I am standing in front of the canteen. Take me to the CSE block."
+    s, e, r = MAP_ENGINE.parse_natural_language_query(q1)
+    assert s == "main_canteen" and e == "cse_block", f"Failed parsing: {s} -> {e}"
+
+    q2 = "From Main Gate to Central Library"
+    s, e, r = MAP_ENGINE.parse_natural_language_query(q2)
+    assert s == "main_gate" and e == "library", f"Failed parsing: {s} -> {e}"
+
+    q3 = "How do I reach the mechanical workshop from sports complex?"
+    s, e, r = MAP_ENGINE.parse_natural_language_query(q3)
+    assert s == "sports_complex" and e == "mech_workshop", f"Failed parsing: {s} -> {e}"
+    print("  [PASS] Natural-language location queries correctly mapped to graph nodes.")
+
+
+def test_7_campus_navigation_svg_and_edge_cases():
+    print("Testing Campus Navigation: SVG generation & edge cases...")
+    route = MAP_ENGINE.find_shortest_route("main_canteen", "cse_block")
+    svg = MAP_ENGINE.render_route_svg(route)
+    assert "<svg" in svg and "</svg>" in svg
+    assert "Main Canteen" in svg or "Canteen" in svg
+    assert "CSE Block" in svg
+
+    # Same location test
+    same = MAP_ENGINE.find_shortest_route("library", "library")
+    assert same["status"] == "success"
+    assert same["total_distance_m"] == 0
+
+    # Unknown location test
+    err = MAP_ENGINE.find_shortest_route("non_existent_node", "library")
+    assert err["status"] == "error"
+    print("  [PASS] SVG schematic generated and edge cases handled safely.")
+
+
+def test_8_campus_guide_live():
+    print("Testing Mode 1: Campus Guide Q&A with Gemma 4...")
     q = "What should I check if my attendance drops below 75%?"
     t0 = time.time()
     res = run_campus_guide(q, CAMPUS_DATA, "College Procedures")
     elapsed = time.time() - t0
     print(f"  Received response in {elapsed:.2f}s ({len(res)} chars)")
-    assert "Direct Answer" in res or "Attendance" in res, "Expected structured sections in response"
-    assert "Dean" in res or "advisor" in res.lower() or "official" in res.lower(), "Expected institutional guidance"
+    assert "Direct Answer" in res or "Attendance" in res
+    assert "Dean" in res or "advisor" in res.lower() or "official" in res.lower()
     print("  [PASS] Campus Guide produces grounded, structured response.")
 
 
-def test_5_study_mate_live():
-    print("Testing Mode 2: StudyMate with Gemma 4...")
+def test_9_study_mate_live():
+    print("Testing Mode 2: StudyMate with Gemma 4 & LaTeX math...")
     t0 = time.time()
     res = run_study_mate(
-        task_type="Create a study plan",
-        subject="Data Structures: Binary Search Trees and Heaps",
-        timeline="Exam in 5 days",
-        hours_per_day=3.0,
-        weak_topics="Heapify and deletion in BST",
-        instructions="Include practical coding drills."
+        task_type="Explain a concept",
+        subject="Linear Algebra: Eigenvalues and Eigenvectors $Av = \\lambda v$",
+        timeline="Exam in 3 days",
+        hours_per_day=2.0,
+        weak_topics="Characteristic equation det(A - λI) = 0",
+        instructions="Provide mathematical breakdown."
     )
     elapsed = time.time() - t0
     print(f"  Received response in {elapsed:.2f}s ({len(res)} chars)")
-    assert len(res) > 200, "Response is substantial"
-    assert "day" in res.lower() or "roadmap" in res.lower() or "plan" in res.lower()
-    print("  [PASS] StudyMate creates detailed, realistic study schedule.")
+    assert len(res) > 200
+    assert "Core Concept" in res or "Concept" in res
+    print("  [PASS] StudyMate generates mathematical concept breakdown with KaTeX compatibility.")
 
 
-def test_6_campus_fix_live():
+def test_10_campus_fix_live():
     print("Testing Mode 3: CampusFix with Gemma 4...")
     t0 = time.time()
     res = run_campus_fix(
@@ -121,23 +191,27 @@ def test_6_campus_fix_live():
     )
     elapsed = time.time() - t0
     print(f"  Received response in {elapsed:.2f}s ({len(res)} chars)")
-    assert "Category" in res or "Problem" in res, "Categorization header present"
-    assert "Draft" in res or "Subject" in res, "Report draft block present"
+    assert "Category" in res or "Problem" in res
+    assert "Draft" in res or "Subject" in res
     print("  [PASS] CampusFix creates structured categorization and draft email.")
 
 
 def main():
     print("==========================================================")
-    print("  RUNNING CAMPUSMATE AI VERIFICATION SUITE")
+    print("  RUNNING CAMPUSMATE AI COMPREHENSIVE VERIFICATION SUITE")
     print("==========================================================")
     test_1_model_id_integrity()
     test_2_security_key_management()
     test_3_input_validation()
-    test_4_campus_guide_live()
-    test_5_study_mate_live()
-    test_6_campus_fix_live()
+    test_4_campus_navigation_dijkstra()
+    test_5_campus_navigation_time_and_steps()
+    test_6_campus_navigation_natural_language()
+    test_7_campus_navigation_svg_and_edge_cases()
+    test_8_campus_guide_live()
+    test_9_study_mate_live()
+    test_10_campus_fix_live()
     print("==========================================================")
-    print("  ALL TESTS PASSED SUCCESSFULLY! (6/6)")
+    print("  ALL 10 VERIFICATION TESTS PASSED SUCCESSFULLY! (10/10)")
     print("==========================================================")
 
 

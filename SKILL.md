@@ -31,19 +31,20 @@ CampusMate AI unifies these solutions into a **single-screen, zero-database, pri
 ## 3. The Three Operating Modes
 
 ### Mode 1: Campus Guide (🏫)
-- **When to Use:** When a student has queries regarding academic resources, department procedures, library borrowing norms, laboratory safety etiquette, technical societies/clubs, or hostel/facility guidelines.
-- **Workflow & Knowledge Grounding:**
-  1. The user inputs their question and selects an optional topic filter.
-  2. The application extracts relevant context from local `campus_data.json`.
-  3. A single prompt containing the grounded context is dispatched to Gemma 4.
-  4. Response is structured into:
-     - Direct Answer
-     - Important Details & Regulations
-     - Recommended Next Steps
-     - Information Requiring Official Verification
+- **When to Use:** When navigating between campus buildings or seeking guidance on academic resources, attendance shortfall steps, library borrowing norms, laboratory etiquette, clubs, or facilities.
+- **Two Capabilities:**
+  1. **Campus Navigation (Local Dijkstra Engine • 0 API Calls):**
+     - Resolves starting location and destination from dropdowns or natural-language queries.
+     - Deterministically calculates the shortest walking path using Dijkstra's algorithm over `campus_map.json`.
+     - Computes total distance in meters and estimated walking time (based on 1.2 m/s standard walking speed).
+     - Generates numbered, landmark-guided walking directions and a lightweight SVG path schematic.
+     - Never hallucinates unverified GPS coordinates; clearly tags unverified paths as `DEMO ROUTE`.
+  2. **Campus Q&A (Gemma 4 • Single API Call):**
+     - Answers policy and campus life queries grounded in local `campus_data.json`.
+     - Structures answers into: Direct Answer, Important Regulations, Recommended Next Steps, and Official Verification Required.
 - **Uncertain Information Policy:**
   - Never invent official college circulars, faculty contact numbers, emergency helplines, or specific semester cutoff dates.
-  - Clearly instruct the student to cross-verify procedure submissions with their Faculty Advisor, Department Office, or Dean of Student Affairs.
+  - Clearly instruct students to cross-verify submissions with their Faculty Advisor, Department Office, or Dean of Student Affairs.
 
 ### Mode 2: StudyMate (📚)
 - **When to Use:** When students need structured revision plans, conceptual explanations, or step-by-step academic question derivations.
