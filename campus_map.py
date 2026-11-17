@@ -347,8 +347,8 @@ class CampusMapEngine:
             f'  </marker>',
             f'</defs>',
             # Header label inside SVG
-            f'<text x="24" y="28" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="{text_muted}">CAMPUS WALKING PATH SCHEMATIC</text>',
-            f'<text x="{svg_width - 24}" y="28" text-anchor="end" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="{text_muted}">{route_result["total_distance_m"]}m total</text>'
+            f'<text x="24" y="28" font-family="Syne, Plus Jakarta Sans, sans-serif" font-size="11.5" font-weight="700" letter-spacing="0.08em" fill="{text_muted}">CAMPUS WALKING PATH SCHEMATIC</text>',
+            f'<text x="{svg_width - 24}" y="28" text-anchor="end" font-family="Syne, Plus Jakarta Sans, sans-serif" font-size="12" font-weight="700" letter-spacing="0.02em" fill="{text_primary}">{route_result["total_distance_m"]}m total</text>'
         ]
 
         step_x = (svg_width - padding * 2) / max(1, num_nodes - 1) if num_nodes > 1 else svg_width / 2
@@ -367,10 +367,10 @@ class CampusMapEngine:
             # Distance badge above arrow
             mid_x = (x1 + x2) / 2
             svg_parts.append(
-                f'<rect x="{mid_x - 22}" y="{y_pos - 20}" width="44" height="16" rx="4" fill="{bg_card}" stroke="{border_col}" stroke-width="1"/>'
+                f'<rect x="{mid_x - 24}" y="{y_pos - 21}" width="48" height="17" rx="5" fill="{bg_card}" stroke="{border_col}" stroke-width="1"/>'
             )
             svg_parts.append(
-                f'<text x="{mid_x}" y="{y_pos - 8}" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="{text_primary}">{dist_str}</text>'
+                f'<text x="{mid_x}" y="{y_pos - 8.5}" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5" font-weight="700" letter-spacing="0.02em" fill="{text_primary}">{dist_str}</text>'
             )
 
         # Draw nodes & labels
@@ -390,16 +390,16 @@ class CampusMapEngine:
 
             # Circle pin
             svg_parts.append(f'<circle cx="{cx}" cy="{y_pos}" r="14" fill="{color}" stroke="{bg_card}" stroke-width="3"/>')
-            svg_parts.append(f'<text x="{cx}" y="{y_pos + 4}" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" fill="#ffffff">{i + 1}</text>')
+            svg_parts.append(f'<text x="{cx}" y="{y_pos + 4}" text-anchor="middle" font-family="Syne, Plus Jakarta Sans, sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">{i + 1}</text>')
 
             # Role badge (START / STEP / GOAL)
-            svg_parts.append(f'<text x="{cx}" y="{y_pos + 30}" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" fill="{color}">{tag}</text>')
+            svg_parts.append(f'<text x="{cx}" y="{y_pos + 30}" text-anchor="middle" font-family="Syne, Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em" fill="{color}">{tag}</text>')
 
             # Node Name
             short_name = node["name"]
             if len(short_name) > 16:
                 short_name = short_name[:14] + "..."
-            svg_parts.append(f'<text x="{cx}" y="{y_pos + 45}" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="{text_primary}">{short_name}</text>')
+            svg_parts.append(f'<text x="{cx}" y="{y_pos + 45}" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11.5" font-weight="600" fill="{text_primary}">{short_name}</text>')
 
         svg_parts.append('</svg>')
         return "\n".join(svg_parts)

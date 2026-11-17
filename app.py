@@ -72,6 +72,16 @@ CUSTOM_CSS = """
    ================================================================= */
 
 :root {
+    --font-display: 'Syne', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    --prose-header-text-weight: 700 !important;
+    --button-large-text-weight: 700 !important;
+    --button-medium-text-weight: 600 !important;
+    --button-small-text-weight: 600 !important;
+    --block-label-text-weight: 600 !important;
+    --block-title-text-weight: 600 !important;
+    --checkbox-label-text-weight: 600 !important;
     --bg-page: #f8fafc;
     --bg-page-mesh: radial-gradient(circle at 20% 15%, rgba(37, 99, 235, 0.08), transparent 45%),
                     radial-gradient(circle at 80% 25%, rgba(79, 70, 229, 0.06), transparent 45%),
@@ -80,8 +90,8 @@ CUSTOM_CSS = """
     --bg-card-hover: rgba(255, 255, 255, 0.98);
     --bg-card-subtle: #f1f5f9;
     --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #64748b;
+    --text-secondary: #334155;
+    --text-muted: #52627a;
     --border-subtle: rgba(226, 232, 240, 0.9);
     --border-card: rgba(203, 213, 225, 0.8);
     --border-strong: #94a3b8;
@@ -93,6 +103,12 @@ CUSTOM_CSS = """
     --accent-soft: #eff6ff;
     --accent-soft-border: #bfdbfe;
     --accent-glow: rgba(37, 99, 235, 0.2);
+    --hero-gradient: linear-gradient(115deg, #0f172a 0%, #1d4ed8 56%, #4f46e5 100%);
+    --hero-accent-gradient: linear-gradient(115deg, #2563eb 0%, #4f46e5 55%, #0284c7 100%);
+    --hero-drop-glow: 0 2px 18px rgba(37, 99, 235, 0.14);
+    --brand-accent-gradient: linear-gradient(120deg, #2563eb 0%, #4f46e5 55%, #0284c7 100%);
+    --stat-accent: #1d4ed8;
+    --code-inline-text: #0369a1;
     --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
     --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.08), 0 0 15px rgba(37, 99, 235, 0.04);
     --shadow-hover: 0 16px 36px -6px rgba(0, 0, 0, 0.12), 0 0 20px rgba(79, 70, 229, 0.12);
@@ -101,6 +117,14 @@ CUSTOM_CSS = """
 }
 
 .dark, body.dark, .gradio-container.dark {
+    --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    --prose-header-text-weight: 700 !important;
+    --button-large-text-weight: 700 !important;
+    --button-medium-text-weight: 600 !important;
+    --button-small-text-weight: 600 !important;
+    --block-label-text-weight: 600 !important;
+    --block-title-text-weight: 600 !important;
+    --checkbox-label-text-weight: 600 !important;
     --bg-page: #060913 !important;
     --bg-page-mesh: radial-gradient(circle at 15% 15%, rgba(30, 58, 138, 0.22), transparent 45%),
                     radial-gradient(circle at 85% 20%, rgba(88, 28, 135, 0.18), transparent 45%),
@@ -110,19 +134,25 @@ CUSTOM_CSS = """
     --bg-card-hover: rgba(18, 26, 48, 0.85) !important;
     --bg-card-subtle: rgba(22, 32, 58, 0.6) !important;
     --text-primary: #f8fafc !important;
-    --text-secondary: #94a3b8 !important;
-    --text-muted: #64748b !important;
+    --text-secondary: #b0c0d4 !important;
+    --text-muted: #8a9bb5 !important;
     --border-subtle: rgba(255, 255, 255, 0.08) !important;
     --border-card: rgba(56, 189, 248, 0.14) !important;
     --border-strong: rgba(99, 102, 241, 0.3) !important;
     --border-hover: rgba(56, 189, 248, 0.45) !important;
     --accent-primary: #3b82f6 !important;
     --accent-indigo: #6366f1 !important;
-    --accent-cyan: #06b6d4 !important;
+    --accent-cyan: #22d3ee !important;
     --accent-hover: #60a5fa !important;
     --accent-soft: rgba(59, 130, 246, 0.12) !important;
     --accent-soft-border: rgba(59, 130, 246, 0.25) !important;
     --accent-glow: rgba(59, 130, 246, 0.35) !important;
+    --hero-gradient: linear-gradient(112deg, #ffffff 0%, #e0f2fe 48%, #93c5fd 85%, #a5b4fc 100%) !important;
+    --hero-accent-gradient: linear-gradient(110deg, #38bdf8 0%, #60a5fa 48%, #a5b4fc 100%) !important;
+    --hero-drop-glow: 0 0 24px rgba(56, 189, 248, 0.24) !important;
+    --brand-accent-gradient: linear-gradient(120deg, #38bdf8 0%, #60a5fa 50%, #a5b4fc 100%) !important;
+    --stat-accent: #38bdf8 !important;
+    --code-inline-text: #38bdf8 !important;
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
     --shadow-md: 0 10px 28px -4px rgba(0, 0, 0, 0.55), 0 0 20px rgba(59, 130, 246, 0.08) !important;
     --shadow-hover: 0 18px 40px -6px rgba(0, 0, 0, 0.7), 0 0 25px rgba(99, 102, 241, 0.25) !important;
@@ -137,9 +167,26 @@ body, .gradio-container {
     background: var(--bg-page-mesh) !important;
     background-attachment: fixed !important;
     color: var(--text-primary) !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif !important;
+    font-family: var(--font-body) !important;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-size-adjust: from-font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden !important;
+}
+
+/* Ensure Gradio UI elements inherit body font without disturbing KaTeX math */
+.gradio-container button,
+.gradio-container input,
+.gradio-container textarea,
+.gradio-container select,
+.gradio-container label,
+.gradio-container p,
+.gradio-container li {
+    font-family: var(--font-body) !important;
 }
 
 /* Centered layout container */
@@ -230,6 +277,8 @@ body, .gradio-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 16px;
     padding: 14px 22px;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -271,7 +320,8 @@ body, .gradio-container {
 .nav-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 10px 14px;
     position: relative;
     z-index: 1;
 }
@@ -282,6 +332,7 @@ body, .gradio-container {
     justify-content: center;
     width: 40px;
     height: 40px;
+    flex-shrink: 0;
     background: linear-gradient(135deg, #2563eb, #4f46e5);
     color: #ffffff;
     border-radius: 12px;
@@ -294,25 +345,56 @@ body, .gradio-container {
 }
 
 .nav-brand-name {
-    font-size: 21px;
+    font-family: var(--font-display) !important;
+    font-size: clamp(1.2rem, 1.08rem + 0.45vw, 1.45rem);
     font-weight: 800;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
     color: var(--text-primary);
+    font-size-adjust: from-font;
+}
+
+.brand-accent-mate {
+    background: var(--brand-accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+}
+
+.brand-accent-ai {
+    font-family: var(--font-display) !important;
+    font-weight: 700;
+    font-size: 0.88em;
+    letter-spacing: 0.06em;
+    color: var(--accent-cyan);
+    margin-left: 1px;
 }
 
 .nav-model-pill {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 5px;
     background: var(--accent-soft);
     color: var(--accent-primary);
     border: 1px solid var(--accent-soft-border);
     padding: 5px 12px;
     border-radius: 9999px;
-    font-size: 11.5px;
+    font-family: var(--font-body) !important;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    font-variant-numeric: tabular-nums;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-model-id {
+    opacity: 0.82;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+    font-variant-numeric: tabular-nums;
 }
 
 .nav-actions {
@@ -329,8 +411,11 @@ body, .gradio-container {
     border: 1px solid var(--border-card);
     padding: 8px 16px;
     border-radius: 10px;
-    font-size: 13px;
+    font-family: var(--font-body) !important;
+    font-size: 0.825rem;
     font-weight: 600;
+    letter-spacing: 0.015em;
+    line-height: 1.3;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -343,6 +428,11 @@ body, .gradio-container {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
+.theme-toggle-btn:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+}
+
 .theme-toggle-btn:active {
     transform: translateY(0.5px);
 }
@@ -351,27 +441,46 @@ body, .gradio-container {
    HERO WELCOME HEADER
    ----------------------------------------------------------------- */
 .hero-box {
-    margin-bottom: 22px;
-    padding: 6px 4px;
+    margin-bottom: 24px;
+    padding: 8px 4px 6px 4px;
     position: relative;
     z-index: 1;
 }
 
 .hero-tagline {
-    font-size: 24px;
+    font-family: var(--font-display) !important;
+    font-size: clamp(1.5rem, 1.05rem + 1.8vw, 2.35rem);
     font-weight: 800;
-    letter-spacing: -0.4px;
-    color: var(--text-primary) !important;
-    text-shadow: 0 0 24px rgba(56, 189, 248, 0.3);
-    margin-bottom: 6px;
+    line-height: 1.16;
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+    font-size-adjust: from-font;
+    background: var(--hero-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    filter: drop-shadow(var(--hero-drop-glow));
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+}
+
+.hero-tagline-accent {
+    background: var(--hero-accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
 }
 
 .hero-subtext {
-    font-size: 13.5px;
+    font-family: var(--font-body) !important;
+    font-size: clamp(0.875rem, 0.84rem + 0.16vw, 0.965rem);
+    font-weight: 450;
     color: var(--text-secondary);
-    line-height: 1.55;
+    line-height: 1.65;
+    letter-spacing: -0.005em;
+    text-wrap: pretty;
     margin: 0;
-    max-width: 880px;
+    max-width: 68ch;
 }
 
 /* -----------------------------------------------------------------
@@ -390,35 +499,60 @@ body, .gradio-container {
 
 .feature-radio-group .wrap {
     display: flex !important;
+    flex-wrap: wrap !important;
     gap: 6px !important;
 }
 
 .feature-radio-group label {
-    flex: 1 !important;
+    flex: 1 1 140px !important;
     text-align: center !important;
+    justify-content: center !important;
     border-radius: 10px !important;
-    padding: 9px 18px !important;
-    font-size: 14px !important;
+    padding: 10px 18px !important;
+    font-family: var(--font-body) !important;
+    font-size: clamp(0.875rem, 0.84rem + 0.15vw, 0.95rem) !important;
     font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.3 !important;
     color: var(--text-secondary) !important;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: color 0.22s ease,
+                letter-spacing 0.22s ease,
+                background 0.22s ease,
+                border-color 0.22s ease,
+                box-shadow 0.22s ease,
+                transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
     border: 1px solid transparent !important;
     cursor: pointer !important;
+}
+
+.feature-radio-group label span {
+    font-family: var(--font-body) !important;
+    font-weight: inherit !important;
+    letter-spacing: inherit !important;
+    transition: letter-spacing 0.22s ease, transform 0.22s ease !important;
 }
 
 .feature-radio-group label:hover {
     color: var(--text-primary) !important;
     background: rgba(255, 255, 255, 0.05) !important;
     border-color: rgba(255, 255, 255, 0.08) !important;
+    letter-spacing: 0.02em !important;
 }
 
 .feature-radio-group label.selected,
 .feature-radio-group label:has(input:checked) {
     background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%) !important;
     color: #ffffff !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
     box-shadow: 0 4px 14px rgba(37, 99, 235, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
     border-color: rgba(255, 255, 255, 0.15) !important;
     transform: translateY(-1px) !important;
+}
+
+.feature-radio-group label:has(input:focus-visible) {
+    outline: 2px solid var(--accent-cyan) !important;
+    outline-offset: 2px !important;
 }
 
 /* -----------------------------------------------------------------
@@ -448,20 +582,66 @@ body, .gradio-container {
 }
 
 .panel-title {
-    font-size: 17px !important;
+    font-family: var(--font-display) !important;
+    font-size: clamp(1.15rem, 1.04rem + 0.4vw, 1.35rem) !important;
     font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.25 !important;
+    text-wrap: balance;
+    font-size-adjust: from-font;
     color: var(--text-primary) !important;
-    margin-bottom: 2px !important;
+    margin-bottom: 4px !important;
     position: relative !important;
     z-index: 1 !important;
 }
 
 .panel-caption {
-    font-size: 12.5px !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.845rem !important;
+    font-weight: 450 !important;
+    line-height: 1.55 !important;
+    text-wrap: pretty;
     color: var(--text-muted) !important;
     margin-bottom: 14px !important;
     position: relative !important;
     z-index: 1 !important;
+}
+
+/* Right-column major section heading */
+.section-heading-md h3 {
+    font-family: var(--font-display) !important;
+    font-size: clamp(1.1rem, 1rem + 0.35vw, 1.3rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.25 !important;
+    text-wrap: balance;
+    font-size-adjust: from-font;
+    color: var(--text-primary) !important;
+    margin: 2px 0 10px 0 !important;
+}
+
+/* Micro-typographic uppercase sub-labels (Quick Route Samples / Quick Prompts) */
+.micro-section-label p,
+.micro-section-label strong {
+    font-family: var(--font-display) !important;
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.065em !important;
+    text-transform: uppercase !important;
+    line-height: 1.4 !important;
+    color: var(--accent-cyan) !important;
+    margin: 6px 0 4px 0 !important;
+}
+
+/* Form field labels & sub-mode radio labels inside panels */
+.panel-card span[data-testid="block-info"],
+.panel-card label > span:first-child {
+    font-family: var(--font-body) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.4 !important;
+    color: var(--text-secondary) !important;
 }
 
 /* -----------------------------------------------------------------
@@ -471,9 +651,12 @@ body, .gradio-container {
     background: var(--bg-card-subtle) !important;
     color: var(--text-secondary) !important;
     border: 1px solid var(--border-card) !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    padding: 6px 12px !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.35 !important;
+    padding: 7px 12px !important;
     border-radius: 8px !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -484,6 +667,11 @@ body, .gradio-container {
     color: var(--text-primary) !important;
     transform: translateY(-1.5px) !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 10px rgba(59, 130, 246, 0.18) !important;
+}
+
+.quick-prompt-btn:focus-visible {
+    outline: 2px solid var(--accent-cyan) !important;
+    outline-offset: 2px !important;
 }
 
 .quick-prompt-btn:active {
@@ -497,8 +685,25 @@ input[type="text"], textarea, .gr-textbox input, .gr-textbox textarea, select, .
     background: var(--bg-card-subtle) !important;
     border: 1px solid var(--border-card) !important;
     color: var(--text-primary) !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.925rem !important;
+    font-weight: 450 !important;
+    line-height: 1.5 !important;
+    letter-spacing: -0.004em !important;
     border-radius: 10px !important;
     transition: all 0.2s ease !important;
+}
+
+input[type="number"] {
+    font-family: var(--font-body) !important;
+    font-variant-numeric: tabular-nums !important;
+    font-weight: 700 !important;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.85 !important;
 }
 
 input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox textarea:focus {
@@ -514,8 +719,11 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
 .btn-primary-action {
     background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%) !important;
     color: #ffffff !important;
+    font-family: var(--font-body) !important;
     font-weight: 700 !important;
-    font-size: 14.5px !important;
+    font-size: 0.9375rem !important;
+    letter-spacing: 0.015em !important;
+    line-height: 1.35 !important;
     padding: 12px 24px !important;
     border-radius: 10px !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
@@ -541,8 +749,14 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
 
 .btn-primary-action:hover {
     background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+    letter-spacing: 0.022em !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45), 0 0 14px rgba(99, 102, 241, 0.3) !important;
+}
+
+.btn-primary-action:focus-visible {
+    outline: 2px solid var(--accent-cyan) !important;
+    outline-offset: 3px !important;
 }
 
 .btn-primary-action:hover::after {
@@ -558,10 +772,13 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
     background: var(--bg-card-subtle) !important;
     color: var(--text-primary) !important;
     border: 1px solid var(--border-card) !important;
-    font-size: 13px !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.835rem !important;
     font-weight: 600 !important;
+    letter-spacing: 0.015em !important;
+    line-height: 1.35 !important;
     border-radius: 8px !important;
-    padding: 7px 14px !important;
+    padding: 8px 14px !important;
     transition: all 0.2s ease !important;
 }
 
@@ -571,6 +788,11 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
     color: var(--accent-hover) !important;
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn-secondary-action:focus-visible {
+    outline: 2px solid var(--accent-cyan) !important;
+    outline-offset: 2px !important;
 }
 
 /* -----------------------------------------------------------------
@@ -587,7 +809,11 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
     min-height: 480px;
     max-height: 720px;
     overflow-y: auto !important;
+    overflow-wrap: break-word;
     position: relative !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.945rem;
+    line-height: 1.7;
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.25s ease !important;
@@ -603,20 +829,52 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
     color: var(--text-primary) !important;
 }
 
-.result-card h1, .result-card h2, .result-card h3, .result-card h4 {
-    color: var(--accent-primary) !important;
-    margin-top: 14px;
-    margin-bottom: 8px;
-    font-weight: 700;
+.result-card p,
+.result-card li {
+    font-family: var(--font-body) !important;
+    font-size: 0.945rem;
+    line-height: 1.7;
+    letter-spacing: -0.003em;
+    text-wrap: pretty;
 }
 
+.result-card h1, .result-card h2, .result-card h3, .result-card h4 {
+    font-family: var(--font-display) !important;
+    color: var(--accent-hover) !important;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.25;
+    text-wrap: balance;
+    font-size-adjust: from-font;
+}
+
+.result-card h1 { font-size: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem); }
+.result-card h2 { font-size: clamp(1.12rem, 1.04rem + 0.35vw, 1.32rem); }
+.result-card h3 { font-size: clamp(1.0rem, 0.95rem + 0.22vw, 1.14rem); }
+.result-card h4 { font-size: 0.96rem; letter-spacing: -0.01em; }
+
+/* Route step numbers & ordered list counters stand out geometrically */
+.result-card ol > li::marker {
+    font-family: var(--font-display) !important;
+    font-weight: 800;
+    color: var(--stat-accent) !important;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Numerical & inline code pills (distances like 90m, 130m, model IDs) */
 .result-card code {
     background: var(--bg-card-subtle) !important;
-    color: #38bdf8 !important;
-    padding: 3px 7px;
-    border-radius: 5px;
-    font-size: 12.5px;
-    border: 1px solid rgba(56, 189, 248, 0.15);
+    color: var(--code-inline-text) !important;
+    font-family: var(--font-body) !important;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.84rem;
+    border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
 .result-card pre {
@@ -631,19 +889,97 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
 .result-card pre code, .result-card pre * {
     background: transparent !important;
     color: var(--code-text) !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+    font-weight: 400;
+    border: none;
+    padding: 0;
+}
+
+/* Keep KaTeX math rendering crisp and untouched */
+.result-card .katex,
+.result-card .katex * {
+    font-family: KaTeX_Main, "Times New Roman", serif !important;
 }
 
 .result-card blockquote {
     border-left: 3px solid var(--accent-primary) !important;
     background: var(--bg-card-subtle) !important;
-    padding: 10px 14px;
-    border-radius: 6px;
-    margin: 10px 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 12px 0;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    text-wrap: pretty;
+}
+
+/* Make key route figures (distance, estimated walk time) pop cleanly */
+.result-card blockquote strong {
+    font-family: var(--font-display) !important;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--stat-accent) !important;
+}
+
+/* Crisp numerical alignment in generated Markdown tables */
+.result-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.result-card th {
+    font-family: var(--font-display) !important;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--stat-accent) !important;
+    border-bottom: 1px solid var(--border-strong);
+    padding: 8px 10px;
+    text-align: left;
+}
+
+.result-card td {
+    font-family: var(--font-body) !important;
+    font-size: 0.89rem;
+    line-height: 1.5;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-subtle);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Execution metadata bar at the bottom of generated responses */
+.exec-meta-bar {
+    font-family: var(--font-body) !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.02em;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted) !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px 14px;
+}
+
+.exec-meta-bar span,
+.exec-meta-bar b {
+    color: var(--text-muted) !important;
+    font-variant-numeric: tabular-nums;
+}
+
+.exec-meta-bar b {
+    font-weight: 700;
+    color: var(--text-secondary) !important;
 }
 
 .demo-notice-box {
-    font-size: 12px;
+    font-family: var(--font-body) !important;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    letter-spacing: 0.005em;
     color: var(--text-muted);
     background: var(--bg-card-subtle);
     border-left: 3px solid var(--accent-primary);
@@ -651,6 +987,11 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
     border-radius: 6px;
     margin-top: 14px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.demo-notice-box code {
+    font-weight: 600;
+    letter-spacing: 0.015em;
 }
 
 /* -----------------------------------------------------------------
@@ -712,23 +1053,30 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
 }
 
 .placeholder-icon {
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 1;
 }
 
 .placeholder-title {
-    font-size: 19px;
+    font-family: var(--font-display) !important;
+    font-size: clamp(1.125rem, 1.04rem + 0.35vw, 1.32rem);
     font-weight: 700;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    text-wrap: balance;
+    font-size-adjust: from-font;
     color: var(--text-primary);
     margin-bottom: 8px;
 }
 
 .placeholder-instruction {
-    font-size: 13.5px;
-    color: var(--text-muted);
-    max-width: 400px;
-    line-height: 1.55;
+    font-family: var(--font-body) !important;
+    font-size: 0.875rem;
+    font-weight: 450;
+    color: var(--text-muted) !important;
+    max-width: 42ch;
+    line-height: 1.6;
+    text-wrap: pretty;
 }
 
 /* -----------------------------------------------------------------
@@ -744,8 +1092,10 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), 0 0 18px rgba(56, 189, 248, 0.2);
     padding: 10px 18px;
     border-radius: 10px;
-    font-size: 13.5px;
+    font-family: var(--font-body) !important;
+    font-size: 0.85rem;
     font-weight: 600;
+    letter-spacing: 0.015em;
     z-index: 99999;
     animation: toastEntrance 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     transition: opacity 0.35s ease, transform 0.35s ease;
@@ -770,13 +1120,74 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
 /* Footer note */
 .footer-bar {
     text-align: center;
-    font-size: 12px;
+    font-family: var(--font-body) !important;
+    font-size: 0.775rem;
+    font-weight: 500;
+    letter-spacing: 0.012em;
+    line-height: 1.6;
     color: var(--text-muted);
     margin-top: 30px;
     padding-top: 16px;
     border-top: 1px solid var(--border-subtle);
     position: relative;
     z-index: 1;
+}
+
+.footer-brand {
+    font-family: var(--font-display) !important;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+}
+
+/* -----------------------------------------------------------------
+   RESPONSIVE TYPOGRAPHY & MOBILE SCALING
+   ----------------------------------------------------------------- */
+@media (max-width: 900px) {
+    .app-container {
+        padding: 12px 12px 32px 12px !important;
+    }
+    .panel-card, .result-card {
+        padding: 18px 18px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .campus-navbar {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+    .nav-model-pill {
+        font-size: 0.69rem;
+        padding: 4px 10px;
+    }
+    .hero-box {
+        margin-bottom: 18px;
+        padding: 4px 2px;
+    }
+    .hero-tagline {
+        letter-spacing: -0.022em;
+        line-height: 1.2;
+    }
+    .feature-radio-group label {
+        flex: 1 1 100% !important;
+        padding: 9px 12px !important;
+    }
+    .panel-card {
+        padding: 16px 14px !important;
+    }
+    .result-card {
+        padding: 16px 14px !important;
+        min-height: 320px;
+    }
+    .result-placeholder-box {
+        padding: 44px 12px;
+        min-height: 260px;
+    }
+    .btn-primary-action {
+        font-size: 0.875rem !important;
+        padding: 11px 16px !important;
+    }
 }
 
 /* Accessibility & Reduced Motion */
@@ -810,6 +1221,9 @@ EMPTY_RESULT_PLACEHOLDER = (
 
 # Client script for instant theme toggling and localStorage persistence
 THEME_JS_HEAD = """
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 <script>
 function applyCampusMateTheme(theme) {
     const isDark = theme === 'dark';
@@ -945,7 +1359,7 @@ def execute_campus_navigation(start_loc: str, end_loc: str, query_text: str):
     elapsed_ms = round((time.time() - t0) * 1000, 1)
     footer_badge = (
         f"\n\n---\n"
-        f"<div style='font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;'>"
+        f"<div class='exec-meta-bar'>"
         f"<span>🧭 <b>Local Dijkstra Engine:</b> {elapsed_ms}ms</span>"
         f"<span>⚡ <b>API Calls:</b> 0 (Pure Local Routing)</span>"
         f"<span>📏 <b>Dataset:</b> campus_map.json</span>"
@@ -966,7 +1380,7 @@ def execute_campus_guide_qa(question: str, topic_filter: str):
         duration = round(time.time() - t0, 2)
         badge = (
             f"\n\n---\n"
-            f"<div style='font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;'>"
+            f"<div class='exec-meta-bar'>"
             f"<span>⚡ <b>Model:</b> {GEMMA_MODEL_ID}</span>"
             f"<span>🎯 <b>Single-Request Execution:</b> {duration}s</span>"
             f"<span>🏫 <b>CampusMate AI Engine</b></span>"
@@ -989,7 +1403,7 @@ def execute_study_mate(task_type: str, subject: str, timeline: str, hours: float
         duration = round(time.time() - t0, 2)
         badge = (
             f"\n\n---\n"
-            f"<div style='font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;'>"
+            f"<div class='exec-meta-bar'>"
             f"<span>⚡ <b>Model:</b> {GEMMA_MODEL_ID}</span>"
             f"<span>🎯 <b>Single-Request Execution:</b> {duration}s</span>"
             f"<span>📚 <b>StudyMate Academic Tutor</b></span>"
@@ -1012,7 +1426,7 @@ def execute_campus_fix(desc: str, loc: str, urgency: str, context: str):
         duration = round(time.time() - t0, 2)
         badge = (
             f"\n\n---\n"
-            f"<div style='font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between;'>"
+            f"<div class='exec-meta-bar'>"
             f"<span>⚡ <b>Model:</b> {GEMMA_MODEL_ID}</span>"
             f"<span>🎯 <b>Single-Request Execution:</b> {duration}s</span>"
             f"<span>🛠️ <b>CampusFix Reporting Engine</b></span>"
@@ -1056,11 +1470,11 @@ def build_app():
                         </svg>
                     </div>
                     <div>
-                        <div class="nav-brand-name">CampusMate AI</div>
+                        <div class="nav-brand-name">Campus<span class="brand-accent-mate">Mate</span> <span class="brand-accent-ai">AI</span></div>
                     </div>
                     <div class="nav-model-pill">
                         <span>⚡ Powered by Gemma 4</span>
-                        <span style="opacity: 0.8; font-weight: normal;">(gemma-4-26b-a4b-it)</span>
+                        <span class="nav-model-id">(gemma-4-26b-a4b-it)</span>
                     </div>
                 </div>
                 <div class="nav-actions">
@@ -1074,7 +1488,7 @@ def build_app():
             # 2. Hero Headline
             gr.HTML("""
             <div class="hero-box">
-                <div class="hero-tagline">"Your campus. Your academics. Your AI companion."</div>
+                <div class="hero-tagline">"Your campus. Your academics. <span class="hero-tagline-accent">Your AI companion.</span>"</div>
                 <p class="hero-subtext">
                     A lightweight, privacy-first companion engineered for college students to navigate campus facilities, 
                     craft realistic examination schedules, master challenging concepts, and generate structured incident reports.
@@ -1132,7 +1546,7 @@ def build_app():
                                     scale=1
                                 )
 
-                            gr.Markdown("**Quick Route Samples (Click to load):**")
+                            gr.Markdown("**Quick Route Samples (Click to load):**", elem_classes=["micro-section-label"])
                             with gr.Row():
                                 btn_r1 = gr.Button("Canteen ➔ CSE Block", size="sm", elem_classes=["quick-prompt-btn"])
                                 btn_r2 = gr.Button("Main Gate ➔ Library", size="sm", elem_classes=["quick-prompt-btn"])
@@ -1170,7 +1584,7 @@ def build_app():
                                 interactive=True
                             )
 
-                            gr.Markdown("**Quick Prompts (Click to populate):**")
+                            gr.Markdown("**Quick Prompts (Click to populate):**", elem_classes=["micro-section-label"])
                             with gr.Row():
                                 btn_q1 = gr.Button("Attendance Shortfall (75%)", size="sm", elem_classes=["quick-prompt-btn"])
                                 btn_q2 = gr.Button("First-Year Prep", size="sm", elem_classes=["quick-prompt-btn"])
@@ -1215,7 +1629,7 @@ def build_app():
                             interactive=True
                         )
 
-                        gr.Markdown("**Quick Prompts (Click to populate):**")
+                        gr.Markdown("**Quick Prompts (Click to populate):**", elem_classes=["micro-section-label"])
                         with gr.Row():
                             btn_s1 = gr.Button("DSA 7-Day Plan", size="sm", elem_classes=["quick-prompt-btn"])
                             btn_s2 = gr.Button("Dijkstra vs Bellman-Ford", size="sm", elem_classes=["quick-prompt-btn"])
@@ -1277,7 +1691,7 @@ def build_app():
                         <div class="panel-caption">Transform campus facility, Wi-Fi, or lab issues into a professional, actionable incident report draft.</div>
                         """)
 
-                        gr.Markdown("**Quick Prompts (Click to populate):**")
+                        gr.Markdown("**Quick Prompts (Click to populate):**", elem_classes=["micro-section-label"])
                         with gr.Row():
                             btn_f1 = gr.Button("Lab Wi-Fi Disconnecting", size="sm", elem_classes=["quick-prompt-btn"])
                             btn_f2 = gr.Button("Oscilloscope Noise", size="sm", elem_classes=["quick-prompt-btn"])
@@ -1328,7 +1742,7 @@ def build_app():
 
                 # RIGHT COLUMN: GENERATED RESULT PANEL (SAME SCREEN)
                 with gr.Column(scale=6):
-                    gr.Markdown("### 📋 Generated Intelligence & Navigation")
+                    gr.Markdown("### 📋 Generated Intelligence & Navigation", elem_classes=["section-heading-md"])
                     
                     # Interactive SVG Route Visualizer Display (starts empty and hidden)
                     svg_display = gr.HTML(
@@ -1354,7 +1768,7 @@ def build_app():
             # 5. Footer Bar
             gr.HTML("""
             <div class="footer-bar">
-                CampusMate AI • Developed for "Build for Your Campus" Hackathon • Powered by Google DeepMind's Gemma 4 (gemma-4-26b-a4b-it) • MIT License
+                <span class="footer-brand">Campus<span class="brand-accent-mate">Mate</span> AI</span> • Developed for "Build for Your Campus" Hackathon • Powered by Google DeepMind's Gemma 4 (gemma-4-26b-a4b-it) • MIT License
             </div>
             """)
 
