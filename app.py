@@ -41,6 +41,8 @@ from gemma_client import (
     run_campus_fix,
 )
 from campus_map import get_campus_map_engine
+from campus_notes import NOTES_PAGE_CSS, get_notes_page_html, build_notes_page
+from fastapi.responses import HTMLResponse
 
 # Initialize campus map engine
 MAP_ENGINE = get_campus_map_engine()
@@ -796,7 +798,7 @@ input[type="text"]:focus, textarea:focus, .gr-textbox input:focus, .gr-textbox t
         display: none !important;
     }
 }
-"""
+""" + NOTES_PAGE_CSS
 
 EMPTY_RESULT_PLACEHOLDER = (
     '<div class="result-placeholder-box">\n'
@@ -886,7 +888,7 @@ window.showCampusMateToast = function(msg) {
                 document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
                 
                 // Card spotlight calculation
-                const card = e.target && e.target.closest ? e.target.closest('.panel-card, .result-card, .campus-navbar') : null;
+                const card = e.target && e.target.closest ? e.target.closest('.panel-card, .result-card, .campus-navbar, .folder-card, .recent-card, .note-card, .modal-card') : null;
                 if (card) {
                     const rect = card.getBoundingClientRect();
                     card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
@@ -1064,6 +1066,13 @@ def build_app():
                     </div>
                 </div>
                 <div class="nav-actions">
+                    <a href="/notes" id="nav-notes-link" class="nav-notes-btn" title="My Notes" aria-label="My Notes">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                        <span>My Notes</span>
+                    </a>
                     <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleCampusMateTheme()" title="Switch Light/Dark Mode">
                         <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
                     </button>
@@ -1544,6 +1553,32 @@ def build_app():
             outputs=[output_markdown, svg_display]
         )
 
+    # Register /notes route and page metadata
+    demo.pages.append(("notes", "My Notes", False))
+
+    def render_notes_html():
+        return HTMLResponse(
+            content=f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Notes - CampusMate AI</title>
+    {THEME_JS_HEAD}
+    <style>
+    {CUSTOM_CSS}
+    </style>
+</head>
+<body class="dark">
+    {get_notes_page_html()}
+</body>
+</html>"""
+        )
+
+    if hasattr(demo, "app") and demo.app is not None:
+        demo.app.add_api_route("/notes", render_notes_html, methods=["GET"], response_class=HTMLResponse)
+        demo.app.add_api_route("/notes/", render_notes_html, methods=["GET"], response_class=HTMLResponse)
+
     return demo
 
 
@@ -1551,16 +1586,43 @@ def main():
     """Launch the modernized CampusMate AI application."""
     port = int(os.environ.get("PORT", 7860))
     app = build_app()
+    
+    # Ensure notes endpoints are attached to the server app
+    def render_notes_html():
+        return HTMLResponse(
+            content=f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Notes - CampusMate AI</title>
+    {THEME_JS_HEAD}
+    <style>
+    {CUSTOM_CSS}
+    </style>
+</head>
+<body class="dark">
+    {get_notes_page_html()}
+</body>
+</html>"""
+        )
+
+    if hasattr(app, "app") and app.app is not None:
+        app.app.add_api_route("/notes", render_notes_html, methods=["GET"], response_class=HTMLResponse)
+        app.app.add_api_route("/notes/", render_notes_html, methods=["GET"], response_class=HTMLResponse)
+
     print("==================================================================")
     print("Starting CampusMate AI (Redesigned • Powered by Gemma 4)")
-    print(f"Local Server: http://127.0.0.1:{port}")
+    print(f"Chatbot Interface: http://127.0.0.1:{port}")
+    print(f"My Notes Webpage:  http://127.0.0.1:{port}/notes")
     print("==================================================================")
     app.launch(
         server_name="127.0.0.1",
         server_port=port,
         inbrowser=False,
         head=THEME_JS_HEAD,
-        css=CUSTOM_CSS
+        css=CUSTOM_CSS,
+        _app=app.app if hasattr(app, "app") else None
     )
 
 
